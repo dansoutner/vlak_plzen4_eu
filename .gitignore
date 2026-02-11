@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# IDE
+.idea/
+.DS_Store
+
+# Flask
+instance/
+.cache
+
+# Distribution / packaging
+*.egg-info/
+dist/
+build/
+
+# Data directories
+data/official_rail_work/downloads/
+
+# CZPTT2GTFS outputs
+czptt2gtfs/out/
+czptt2gtfs/JR2025/
+
+# Testing
+.pytest_cache/

@@ -67,11 +67,15 @@ The generated HTML pages now:
 2. Poll `/train_delays` every 60 seconds.
 3. Match delay records to departures:
    - strict match: `train_number` + scheduled time tolerance (`<= 3 min`) -> **high** confidence
-   - heuristic match: route token overlap + scheduled time tolerance (`<= 5 min`) -> **medium** confidence
+   - fallback match: exact route-code overlap + scheduled time tolerance (`<= 3 min`) -> **medium** confidence
 4. For static hour/minute tables:
    - annotate minute chips only for **high-confidence** matches
    - keep unknown or ambiguous minutes unannotated
 5. Missing record in `/train_delays` is treated as **unknown**, not on-time.
+6. Debug panel includes:
+   - confidence counts (`high`, `medium`, `unknown`)
+   - match reason counts (`train_number`, `route_code`, `none`)
+   - train-number availability in current departures (`with`, `without`)
 
 ## Run tests
 
@@ -84,7 +88,35 @@ Test coverage includes:
 - delay parser behavior (`on_time`, `delayed`, `canceled`, `diverted`, `disruption`, `unknown`)
 - backward-compatible response keys
 - additive normalized fields
-- strict/heuristic matching, ambiguous cases, and missing-record behavior
+- strict train-number and route-code fallback matching, ambiguous cases, and missing-record behavior
+
+## Enrich merged GTFS with official train numbers
+
+Use official CZ rail XML data (base + updates), convert with local `czptt2gtfs`, and write a new enriched feed.
+
+```bash
+./venv/bin/python scripts/enrich_merged_with_official_train_numbers.py \
+  --year 2026 \
+  --merged-dir /Users/dan/Data/STAN/jizdni_rady/jizdni-rady-czech-republic/data/merged \
+  --work-dir /Users/dan/Data/STAN/jizdni_rady/data/official_rail_work \
+  --output-dir /Users/dan/Data/STAN/jizdni_rady/data/merged_enriched_train_numbers \
+  --updates-mode all
+```
+
+Key flags:
+
+- `--skip-download`: reuse downloaded archives / extracted XML.
+- `--skip-convert`: reuse already converted official GTFS in `<work-dir>/official_gtfs/<year>`.
+- `--updates-mode all|none`: include all monthly updates or only base archive.
+
+Output:
+
+- enriched feed in `--output-dir` (same as merged feed, with `trips.txt` containing `trip_short_name` for matched rail trips)
+- reports in `<output-dir>/reports/`:
+  - `enrichment_summary.json`
+  - `ambiguous_trips.csv`
+  - `unmatched_trips.csv`
+  - `matched_trips_sample.csv`
 
 ## Notes
 

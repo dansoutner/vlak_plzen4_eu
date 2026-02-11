@@ -165,6 +165,56 @@ DEFAULT_TEMPLATE = """
       color: #333;
       font-size: 0.92em;
     }
+    .debug-panel {
+      margin-top: 10px;
+      border: 1px solid #c8c8c8;
+      border-radius: 6px;
+      background: #fafafa;
+      overflow: hidden;
+    }
+    .debug-panel summary {
+      cursor: pointer;
+      padding: 6px 8px;
+      font-weight: bold;
+      background: #f1f1f1;
+      border-bottom: 1px solid #ddd;
+    }
+    .debug-panel pre {
+      margin: 0;
+      padding: 8px;
+      font-size: 0.82em;
+      line-height: 1.35;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .endpoint-config {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 6px;
+      padding: 8px;
+      border-bottom: 1px solid #ddd;
+      background: #f7f7f7;
+      align-items: center;
+    }
+    .endpoint-config input {
+      width: 100%;
+      min-width: 180px;
+      padding: 6px 8px;
+      border: 1px solid #bbb;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+    .endpoint-config button {
+      padding: 6px 10px;
+      border: 1px solid #999;
+      border-radius: 4px;
+      background: #fff;
+      cursor: pointer;
+      font-size: 0.88em;
+    }
+    .endpoint-config button:hover {
+      background: #efefef;
+    }
     @media (max-width: 980px) {
       .schedule-container {
         grid-template-columns: 1fr;
@@ -178,8 +228,27 @@ DEFAULT_TEMPLATE = """
       saturday: "Sobota",
       sunday: "Nedele"
     };
+    const ENDPOINT_OVERRIDE_KEY = "train_delays_endpoint_override";
 
     let latestDelayRecords = [];
+    const debugState = {
+      fetch_ok: false,
+      fetch_endpoint: null,
+      fetch_http_status: null,
+      fetch_error: null,
+      fetch_attempts: [],
+      last_update_iso: null,
+      records_count: 0,
+      current_selected_count: 0,
+      current_match_confidence: { high: 0, medium: 0, unknown: 0 },
+      current_status_counts: {},
+      current_match_reasons: { train_number: 0, route_code: 0, none: 0 },
+      current_train_number_availability: { with_train_number: 0, without_train_number: 0 },
+      static_candidate_minutes: 0,
+      static_annotated_minutes: 0,
+      endpoint_override: null,
+      endpoint_candidates: []
+    };
 
     function normalizeText(value) {
       return (value || "")
@@ -211,9 +280,21 @@ DEFAULT_TEMPLATE = """
       return "sunday";
     }
 
-    function routeTokens(routeShortName) {
-      const tokens = normalizeText(routeShortName).split(/[^a-z0-9]+/).filter(Boolean);
-      return tokens.filter((token) => token.length >= 2);
+    function isRouteCodeToken(token) {
+      if (!/^[a-z0-9]{2,8}$/.test(token)) return false;
+      return /[a-z]/.test(token) && /[0-9]/.test(token);
+    }
+
+    function extractRouteCodes(value) {
+      const tokens = normalizeText(value).split(/[^a-z0-9]+/).filter(Boolean);
+      const codes = tokens.filter((token) => isRouteCodeToken(token));
+      return Array.from(new Set(codes));
+    }
+
+    function shareRouteCode(leftCodes, rightCodes) {
+      if (!leftCodes.length || !rightCodes.length) return false;
+      const rightSet = new Set(rightCodes);
+      return leftCodes.some((code) => rightSet.has(code));
     }
 
     function normalizeDelayRecord(record) {
@@ -224,14 +305,14 @@ DEFAULT_TEMPLATE = """
       const trainNumber = (record && Number.isFinite(Number(record.train_number)))
         ? Number(record.train_number)
         : null;
-      const routeTextNorm = normalizeText(record ? (record.route_text || record.route || "") : "");
+      const routeCodes = extractRouteCodes(record ? (record.route_text || record.route || "") : "");
       const scheduledMinutes = hhmmToMinutes(record ? (record.scheduled_time_hhmm || record.scheduled_actual_time || "") : "");
       return {
         raw: record,
         status,
         delayMinutes,
         trainNumber,
-        routeTextNorm,
+        routeCodes,
         scheduledMinutes,
       };
     }
@@ -244,7 +325,7 @@ DEFAULT_TEMPLATE = """
     function matchDeparture(departure, delayRecords) {
       const depMinutes = departureMinutes(departure);
       if (depMinutes == null) {
-        return { status: "unknown", confidence: "none", record: null };
+        return { status: "unknown", confidence: "none", match_reason: "none", record: null };
       }
 
       const depTrainNumber = Number.isFinite(Number(departure.train_number))
@@ -261,32 +342,32 @@ DEFAULT_TEMPLATE = """
       }
 
       if (strictCandidates.length === 1) {
-        return { status: strictCandidates[0].status, confidence: "high", record: strictCandidates[0] };
+        return { status: strictCandidates[0].status, confidence: "high", match_reason: "train_number", record: strictCandidates[0] };
       }
       if (strictCandidates.length > 1) {
-        return { status: "unknown", confidence: "none", record: null };
+        return { status: "unknown", confidence: "none", match_reason: "none", record: null };
       }
 
-      const tokens = routeTokens(departure.route_short_name || "");
-      if (!tokens.length) {
-        return { status: "unknown", confidence: "none", record: null };
+      const depRouteCodes = extractRouteCodes(departure.route_short_name || "");
+      if (!depRouteCodes.length) {
+        return { status: "unknown", confidence: "none", match_reason: "none", record: null };
       }
 
-      const heuristicCandidates = delayRecords.filter((record) => {
+      const routeCodeCandidates = delayRecords.filter((record) => {
         if (record.scheduledMinutes == null) return false;
-        if (Math.abs(record.scheduledMinutes - depMinutes) > 5) return false;
-        if (!record.routeTextNorm) return false;
-        return tokens.some((token) => record.routeTextNorm.includes(token));
+        if (Math.abs(record.scheduledMinutes - depMinutes) > 3) return false;
+        if (!record.routeCodes || !record.routeCodes.length) return false;
+        return shareRouteCode(depRouteCodes, record.routeCodes);
       });
 
-      if (heuristicCandidates.length === 1) {
-        return { status: heuristicCandidates[0].status, confidence: "medium", record: heuristicCandidates[0] };
+      if (routeCodeCandidates.length === 1) {
+        return { status: routeCodeCandidates[0].status, confidence: "medium", match_reason: "route_code", record: routeCodeCandidates[0] };
       }
-      if (heuristicCandidates.length > 1) {
-        return { status: "unknown", confidence: "none", record: null };
+      if (routeCodeCandidates.length > 1) {
+        return { status: "unknown", confidence: "none", match_reason: "none", record: null };
       }
 
-      return { status: "unknown", confidence: "none", record: null };
+      return { status: "unknown", confidence: "none", match_reason: "none", record: null };
     }
 
     function statusClass(status) {
@@ -306,6 +387,107 @@ DEFAULT_TEMPLATE = """
       return "nezname";
     }
 
+    function countsToText(counts) {
+      const keys = Object.keys(counts || {}).sort();
+      if (!keys.length) return "none";
+      return keys.map((key) => `${key}:${counts[key]}`).join(", ");
+    }
+
+    function getUrlEndpointOverride() {
+      try {
+        const params = new URLSearchParams(window.location.search || "");
+        const value = (params.get("delays_endpoint") || "").trim();
+        return value || null;
+      } catch (_error) {
+        return null;
+      }
+    }
+
+    function getStoredEndpointOverride() {
+      try {
+        const value = (window.localStorage.getItem(ENDPOINT_OVERRIDE_KEY) || "").trim();
+        return value || null;
+      } catch (_error) {
+        return null;
+      }
+    }
+
+    function setStoredEndpointOverride(value) {
+      try {
+        const text = (value || "").trim();
+        if (!text) {
+          window.localStorage.removeItem(ENDPOINT_OVERRIDE_KEY);
+        } else {
+          window.localStorage.setItem(ENDPOINT_OVERRIDE_KEY, text);
+        }
+      } catch (_error) {
+        // ignore localStorage errors
+      }
+    }
+
+    function getActiveEndpointOverride() {
+      return getUrlEndpointOverride() || getStoredEndpointOverride();
+    }
+
+    function refreshEndpointInput() {
+      const input = document.getElementById("delay-endpoint-input");
+      if (!input) return;
+      input.value = getStoredEndpointOverride() || "";
+      const urlOverride = getUrlEndpointOverride();
+      if (urlOverride) {
+        input.placeholder = `URL override active: ${urlOverride}`;
+      } else {
+        input.placeholder = "/train_delays or http://127.0.0.1:5000/train_delays";
+      }
+    }
+
+    function initEndpointControls() {
+      const input = document.getElementById("delay-endpoint-input");
+      const saveButton = document.getElementById("delay-endpoint-save");
+      const clearButton = document.getElementById("delay-endpoint-clear");
+      if (!input || !saveButton || !clearButton) return;
+
+      refreshEndpointInput();
+
+      saveButton.addEventListener("click", () => {
+        setStoredEndpointOverride(input.value);
+        refreshEndpointInput();
+        refreshView();
+      });
+
+      clearButton.addEventListener("click", () => {
+        setStoredEndpointOverride("");
+        refreshEndpointInput();
+        refreshView();
+      });
+    }
+
+    function renderDebugPanel(dayKey) {
+      const debugOutput = document.getElementById("delay-debug-output");
+      if (!debugOutput) return;
+
+      const lines = [
+        `day_key: ${dayKey}`,
+        `last_update_iso: ${debugState.last_update_iso || "-"}`,
+        `fetch_ok: ${debugState.fetch_ok}`,
+        `fetch_endpoint: ${debugState.fetch_endpoint || "-"}`,
+        `fetch_http_status: ${debugState.fetch_http_status || "-"}`,
+        `fetch_error: ${debugState.fetch_error || "-"}`,
+        `fetch_attempts: ${(debugState.fetch_attempts || []).join(" | ") || "-"}`,
+        `endpoint_override: ${debugState.endpoint_override || "-"}`,
+        `endpoint_candidates: ${(debugState.endpoint_candidates || []).join(" | ") || "-"}`,
+        `delay_records_count: ${debugState.records_count}`,
+        `current_selected_count: ${debugState.current_selected_count}`,
+        `current_match_confidence: high=${debugState.current_match_confidence.high}, medium=${debugState.current_match_confidence.medium}, unknown=${debugState.current_match_confidence.unknown}`,
+        `current_status_counts: ${countsToText(debugState.current_status_counts)}`,
+        `current_match_reasons: ${countsToText(debugState.current_match_reasons)}`,
+        `current_train_number_availability: with=${debugState.current_train_number_availability.with_train_number}, without=${debugState.current_train_number_availability.without_train_number}`,
+        `static_candidate_minutes: ${debugState.static_candidate_minutes}`,
+        `static_annotated_minutes: ${debugState.static_annotated_minutes}`
+      ];
+      debugOutput.textContent = lines.join("\\n");
+    }
+
     function highlightCurrentHour(dayKey, currentHour) {
       const rows = document.querySelectorAll(`.${dayKey} tbody tr`);
       rows.forEach((row) => {
@@ -320,7 +502,15 @@ DEFAULT_TEMPLATE = """
     function renderCurrentDepartures(dayKey) {
       const tableBody = document.getElementById("current-departures-body");
       const label = document.getElementById("current-day-label");
-      if (!tableBody || !label) return;
+      if (!tableBody || !label) {
+        return {
+          selectedCount: 0,
+          confidenceCounts: { high: 0, medium: 0, unknown: 0 },
+          statusCounts: {},
+          reasonCounts: { train_number: 0, route_code: 0, none: 0 },
+          trainNumberAvailability: { with_train_number: 0, without_train_number: 0 },
+        };
+      }
 
       label.textContent = `Aktivni den: ${DAY_LABELS[dayKey] || dayKey}`;
 
@@ -340,13 +530,40 @@ DEFAULT_TEMPLATE = """
 
       if (!selected.length) {
         tableBody.innerHTML = '<tr><td colspan="4">Pro tento den nejsou dostupne odjezdy.</td></tr>';
-        return;
+        return {
+          selectedCount: 0,
+          confidenceCounts: { high: 0, medium: 0, unknown: 0 },
+          statusCounts: {},
+          reasonCounts: { train_number: 0, route_code: 0, none: 0 },
+          trainNumberAvailability: { with_train_number: 0, without_train_number: 0 },
+        };
       }
+
+      const confidenceCounts = { high: 0, medium: 0, unknown: 0 };
+      const statusCounts = {};
+      const reasonCounts = { train_number: 0, route_code: 0, none: 0 };
+      const trainNumberAvailability = { with_train_number: 0, without_train_number: 0 };
 
       const rows = selected.map((departure) => {
         const match = matchDeparture(departure, latestDelayRecords);
+        if (match.confidence === "high") confidenceCounts.high += 1;
+        else if (match.confidence === "medium") confidenceCounts.medium += 1;
+        else confidenceCounts.unknown += 1;
+
+        const matchStatus = match.status || "unknown";
+        statusCounts[matchStatus] = (statusCounts[matchStatus] || 0) + 1;
+        const reason = match.match_reason || "none";
+        reasonCounts[reason] = (reasonCounts[reason] || 0) + 1;
+        const departureTrainNumber = Number.isFinite(Number(departure.train_number))
+          ? Number(departure.train_number)
+          : null;
+        if (departureTrainNumber == null) trainNumberAvailability.without_train_number += 1;
+        else trainNumberAvailability.with_train_number += 1;
+
         const cls = statusClass(match.status);
-        const confidenceText = match.confidence === "medium" ? "stredni shoda" : "vysoka shoda";
+        let confidenceText = "nezname";
+        if (match.confidence === "high") confidenceText = "vysoka shoda";
+        else if (match.confidence === "medium") confidenceText = "stredni shoda";
         const statusText = statusLabel(match);
         const timeLabel = parseHhmm(departure.departure_time) || departure.departure_time || "--:--";
         return `
@@ -360,6 +577,13 @@ DEFAULT_TEMPLATE = """
       });
 
       tableBody.innerHTML = rows.join("");
+      return {
+        selectedCount: selected.length,
+        confidenceCounts,
+        statusCounts,
+        reasonCounts,
+        trainNumberAvailability,
+      };
     }
 
     function clearMinuteBadges() {
@@ -388,6 +612,7 @@ DEFAULT_TEMPLATE = """
         });
       });
 
+      let annotatedMinutes = 0;
       Object.entries(minuteMatches).forEach(([key, matches]) => {
         const statuses = Array.from(new Set(matches.map((match) => match.status || "unknown")));
         if (statuses.length !== 1) return;
@@ -414,21 +639,67 @@ DEFAULT_TEMPLATE = """
           badge.hidden = false;
           badge.textContent = label;
           badge.classList.add(statusClass(status));
+          annotatedMinutes += 1;
         });
       });
+
+      return {
+        candidateMinutes: Object.keys(minuteMatches).length,
+        annotatedMinutes,
+      };
+    }
+
+    function delayEndpointCandidates() {
+      const candidates = [];
+      const endpointOverride = getActiveEndpointOverride();
+      if (endpointOverride) {
+        candidates.push(endpointOverride);
+      }
+      if (window.DELAYS_ENDPOINT) {
+        candidates.push(String(window.DELAYS_ENDPOINT));
+      }
+      candidates.push("/train_delays");
+      if (window.location && window.location.origin && window.location.origin !== "null") {
+        candidates.push(`${window.location.origin}/train_delays`);
+      }
+      if (window.location && window.location.protocol === "file:") {
+        candidates.push("http://127.0.0.1:5000/train_delays");
+        candidates.push("http://localhost:5000/train_delays");
+      }
+      debugState.endpoint_override = endpointOverride;
+      debugState.endpoint_candidates = Array.from(new Set(candidates));
+      return debugState.endpoint_candidates;
     }
 
     async function refreshDelays() {
-      try {
-        const response = await fetch("/train_delays", { cache: "no-store" });
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status}`);
+      const endpoints = delayEndpointCandidates();
+      debugState.fetch_attempts = [];
+      for (const endpoint of endpoints) {
+        try {
+          const response = await fetch(endpoint, { cache: "no-store" });
+          debugState.fetch_attempts.push(`${endpoint} -> HTTP ${response.status}`);
+          if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+          }
+          const payload = await response.json();
+          latestDelayRecords = Object.values(payload || {}).map((record) => normalizeDelayRecord(record));
+
+          debugState.fetch_ok = true;
+          debugState.fetch_endpoint = endpoint;
+          debugState.fetch_http_status = response.status;
+          debugState.fetch_error = null;
+          debugState.records_count = latestDelayRecords.length;
+          debugState.last_update_iso = new Date().toISOString();
+          return;
+        } catch (error) {
+          debugState.fetch_ok = false;
+          debugState.fetch_endpoint = endpoint;
+          debugState.fetch_http_status = null;
+          debugState.fetch_error = String(error && error.message ? error.message : error);
         }
-        const payload = await response.json();
-        latestDelayRecords = Object.values(payload || {}).map((record) => normalizeDelayRecord(record));
-      } catch (error) {
-        console.warn("Failed to refresh train delays:", error);
       }
+      debugState.last_update_iso = new Date().toISOString();
+      console.warn("Failed to refresh train delays:", debugState.fetch_error);
     }
 
     async function refreshView() {
@@ -436,11 +707,20 @@ DEFAULT_TEMPLATE = """
       const dayKey = currentDayKey(now);
       highlightCurrentHour(dayKey, now.getHours());
       await refreshDelays();
-      renderCurrentDepartures(dayKey);
-      annotateStaticMinutes();
+      const currentStats = renderCurrentDepartures(dayKey);
+      const staticStats = annotateStaticMinutes();
+      debugState.current_selected_count = currentStats.selectedCount;
+      debugState.current_match_confidence = currentStats.confidenceCounts;
+      debugState.current_status_counts = currentStats.statusCounts;
+      debugState.current_match_reasons = currentStats.reasonCounts;
+      debugState.current_train_number_availability = currentStats.trainNumberAvailability;
+      debugState.static_candidate_minutes = staticStats.candidateMinutes;
+      debugState.static_annotated_minutes = staticStats.annotatedMinutes;
+      renderDebugPanel(dayKey);
     }
 
     document.addEventListener("DOMContentLoaded", () => {
+      initEndpointControls();
       refreshView();
       window.setInterval(refreshView, 60 * 1000);
     });
@@ -463,6 +743,15 @@ DEFAULT_TEMPLATE = """
           </tbody>
         </table>
         <p class="meta-note">Stavy se aktualizuji kazdych 60 sekund. Chybejici zaznam znamena neznamy stav, ne vcasny vlak.</p>
+        <details class="debug-panel" open>
+          <summary>Debug info (delay integration)</summary>
+          <div class="endpoint-config">
+            <input id="delay-endpoint-input" type="text">
+            <button id="delay-endpoint-save" type="button">Save endpoint</button>
+            <button id="delay-endpoint-clear" type="button">Clear</button>
+          </div>
+          <pre id="delay-debug-output">Nacitam debug info...</pre>
+        </details>
       </div>
     </section>
 
@@ -571,24 +860,24 @@ def hhmm_to_minutes(value: Any) -> int | None:
     return int(hh) * 60 + int(mm)
 
 
-def extract_route_tokens(route_short_name: Any) -> set[str]:
-    normalized = normalize_for_matching(route_short_name)
-    tokens = {token for token in re.split(r"[^a-z0-9]+", normalized) if token}
-    return {token for token in tokens if len(token) >= 2}
-
-
-def route_token_overlap(route_short_name: Any, route_text: Any) -> bool:
-    tokens = extract_route_tokens(route_short_name)
-    if not tokens:
+def is_route_code_token(token: str) -> bool:
+    if not re.fullmatch(r"[a-z0-9]{2,8}", token):
         return False
-    normalized_route_text = normalize_for_matching(route_text)
-    return any(token in normalized_route_text for token in tokens)
+    has_alpha = any(char.isalpha() for char in token)
+    has_digit = any(char.isdigit() for char in token)
+    return has_alpha and has_digit
+
+
+def extract_route_codes(value: Any) -> set[str]:
+    normalized = normalize_for_matching(value)
+    tokens = {token for token in re.split(r"[^a-z0-9]+", normalized) if token}
+    return {token for token in tokens if is_route_code_token(token)}
 
 
 def match_departure_to_delay_records(departure: dict[str, Any], delay_records: list[dict[str, Any]]) -> dict[str, Any]:
     dep_minutes = hhmm_to_minutes(departure.get("departure_time"))
     if dep_minutes is None:
-        return {"status": "unknown", "confidence": "none", "record": None}
+        return {"status": "unknown", "confidence": "none", "match_reason": "none", "record": None}
 
     dep_train_number = departure.get("train_number")
     strict_candidates: list[dict[str, Any]] = []
@@ -604,26 +893,41 @@ def match_departure_to_delay_records(departure: dict[str, Any], delay_records: l
                 strict_candidates.append(record)
 
     if len(strict_candidates) == 1:
-        return {"status": strict_candidates[0].get("status", "unknown"), "confidence": "high", "record": strict_candidates[0]}
+        return {
+            "status": strict_candidates[0].get("status", "unknown"),
+            "confidence": "high",
+            "match_reason": "train_number",
+            "record": strict_candidates[0],
+        }
     if len(strict_candidates) > 1:
-        return {"status": "unknown", "confidence": "none", "record": None}
+        return {"status": "unknown", "confidence": "none", "match_reason": "none", "record": None}
 
-    heuristic_candidates: list[dict[str, Any]] = []
+    dep_route_codes = extract_route_codes(departure.get("route_short_name"))
+    if not dep_route_codes:
+        return {"status": "unknown", "confidence": "none", "match_reason": "none", "record": None}
+
+    route_code_candidates: list[dict[str, Any]] = []
     for record in delay_records:
         record_minutes = hhmm_to_minutes(record.get("scheduled_time_hhmm") or record.get("scheduled_actual_time"))
-        if record_minutes is None or abs(record_minutes - dep_minutes) > 5:
+        if record_minutes is None or abs(record_minutes - dep_minutes) > 3:
             continue
-        route_text = record.get("route_text") or record.get("route") or ""
-        if not route_token_overlap(departure.get("route_short_name"), route_text):
+        route_text = record.get("route_text") or record.get("route")
+        record_route_codes = extract_route_codes(route_text)
+        if not (dep_route_codes & record_route_codes):
             continue
-        heuristic_candidates.append(record)
+        route_code_candidates.append(record)
 
-    if len(heuristic_candidates) == 1:
-        return {"status": heuristic_candidates[0].get("status", "unknown"), "confidence": "medium", "record": heuristic_candidates[0]}
-    if len(heuristic_candidates) > 1:
-        return {"status": "unknown", "confidence": "none", "record": None}
+    if len(route_code_candidates) == 1:
+        return {
+            "status": route_code_candidates[0].get("status", "unknown"),
+            "confidence": "medium",
+            "match_reason": "route_code",
+            "record": route_code_candidates[0],
+        }
+    if len(route_code_candidates) > 1:
+        return {"status": "unknown", "confidence": "none", "match_reason": "none", "record": None}
 
-    return {"status": "unknown", "confidence": "none", "record": None}
+    return {"status": "unknown", "confidence": "none", "match_reason": "none", "record": None}
 
 
 def parse_train_identity(value: Any) -> tuple[str | None, int | None]:

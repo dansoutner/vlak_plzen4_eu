@@ -15,6 +15,15 @@ TRAIN_ID_RE = re.compile(r"\b([A-Za-z]{1,6})\s*([0-9]{1,6})\b")
 TIME_RE = re.compile(r"\b([0-2]?\d:[0-5]\d)\b")
 
 
+@app.after_request
+def add_cors_headers(response):
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Methods"] = "GET, OPTIONS"
+    response.headers["Access-Control-Allow-Headers"] = "Content-Type"
+    response.headers["Access-Control-Max-Age"] = "600"
+    return response
+
+
 def get_text(html):
     soup = BeautifulSoup(html, "html.parser")
     return soup.get_text().strip()
@@ -153,7 +162,7 @@ def scrape_babitron_delays(url):
 
     return results
 
-@app.route('/train_delays', methods=['GET'])
+@app.route('/train_delays', methods=['GET', 'OPTIONS'])
 @cache.cached(timeout=60)
 def get_delays():
     delays_r = scrape_babitron_delays("https://kam.mff.cuni.cz/~babilon/zponline")
