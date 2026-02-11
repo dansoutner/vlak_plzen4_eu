@@ -1,0 +1,18 @@
+[project]
+name = "jizdni-rady-tools"
+version = "0.1.0"
+description = "CLI utilities for Doubravka timetable generation and train delay scraping."
+requires-python = ">=3.10"
+dependencies = [
+  "beautifulsoup4>=4.12",
+  "fake-headers>=1.0",
+  "flask>=3.0",
+  "flask-caching>=2.3",
+  "jinja2>=3.1",
+  "pandas>=2.0",
+  "requests>=2.31",
+]
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
