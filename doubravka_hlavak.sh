@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-. vevn/bin/activate
+. venv/bin/activate
 
 python get_direct_connection_cli.py --from-stop "ST_44120" --to-stop "ST_44121" \
                                 --from-label "Doubravka" --to-label "Hlavní nádraží" \
