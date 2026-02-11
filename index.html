@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YY8F82HJ7R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YY8F82HJ7R');
+</script>
+
+    <!--Recommended Meta Tags-->
+    <meta charset="utf-8">
+    <meta name="language" content="czech">
+    <meta http-equiv="content-type" content="text/html">
+    <meta name="author" content=”ChatGPT”>
+    <meta name="author" content=”Daniel Soutner”>
+    <meta name="designer" content=”ChatGPT”>
+    <meta name="designer" content=”Daniel Soutner”>
+    <meta name="publisher" content=”Vlak Plzeň Doubravka”>
+    <meta name="no-email-collection" content="http://www.unspam.com/noemailcollection/">
+
+    <link rel="icon" type="image/x-icon" href="https://vlakplzen4.soutner.cz/favicon.ico">
+
+    <!--Search Engine Optimization Meta Tags-->
+    <meta name="description" content="Vlakové jízdní řády mezi Plzeň hl.n. a Plzeň - Doubravka">
+    <meta name="keywords" content="doprava, Plzeň, vlak, jízdní řád, Doubravka">
+    <meta name=”robots” content=”index,follow”>
+    <meta name="revisit-after" content="30 days">
+    <meta name="distribution" content="web">
+    <meta http-equiv="refresh" content="30">
+    <meta name=”robots” content=”noodp”>
+
+    <!--Meta Tags for HTML pages on Mobile-->
+    <meta name="format-detection" content="telephone=yes"/>
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Vlaky Plzeň - Doubravka</title>
+  <style>
+    /* Reset and base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+      font-family: Arial, sans-serif;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+    /* Header and navigation styles */
+    header {
+      background: #333;
+    }
+    nav ul {
+      display: flex;
+      list-style: none;
+    }
+    nav ul li {
+      flex: 1;
+      text-align: center;
+      padding: 15px 0;
+      cursor: pointer;
+      color: white;
+    }
+    /* Different background colors for each tab */
+    nav ul li:nth-child(1) { background-color: rgb(133, 10, 67); }
+    nav ul li:nth-child(2) { background-color: rgb(171, 13, 87); }
+    nav ul li:nth-child(3) { background-color: rgb(206, 15, 104); }
+    nav ul li:nth-child(4) { background-color: #f39c12; }
+    nav ul li:nth-child(5) { background-color: #9b59b6; }
+
+    /* Active tab style */
+    nav ul li.active {
+      border-bottom: 5px solid white;
+    }
+
+    /* Main content area */
+    #content {
+      flex: 1;
+      position: relative;
+      overflow: auto;
+    }
+    /* Map iframe styling */
+    #content iframe {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Footer style */
+    footer {
+      text-align: center;
+      padding: 10px;
+      background: #f0f0f0;
+      font-size: 0.8em;
+    }
+
+    /* Styling for home page text */
+    .home-text {
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Top Navigation Menu -->
+  <header>
+    <nav>
+      <ul class="nav-menu">
+        <li class="active" onclick="switchTab('aktualni')">Aktuální odjezdy z Doubravky</li>
+        <li onclick="switchTab('doubravka_plzen')">Doubravka -> Plzeň hl.n.</li>
+        <li onclick="switchTab('plzen_doubravka')">Plzeň hl.n. -> Doubravka</li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Content Area -->
+  <div id="content"></div>
+
+  <!-- Footer -->
+  <footer>
+    made with ❤️ by Daniel Soutner, data aktualizována 10. 2. 2026
+  </footer>
+
+  <script>
+    // Define content for each tab
+    const contentData = {
+      aktualni: `
+        <iframe
+          src="https://vlak-szdc.plzen4.eu"
+          allowfullscreen>
+        </iframe>
+      `,
+      doubravka_plzen: `
+        <iframe
+          src="https://vlakplzen4.soutner.cz/doubravka_hlavak.html"
+          allowfullscreen>
+        </iframe>
+      `,
+      plzen_doubravka: `
+        <iframe
+          src="https://vlakplzen4.soutner.cz/hlavak_doubravka.html"
+          allowfullscreen>
+        </iframe>
+      `
+    };
+
+    // Function to switch content based on the selected tab
+    function switchTab(tabName) {
+      // Update the content area
+      document.getElementById('content').innerHTML = contentData[tabName] || '';
+
+      // Update active tab styling
+      const tabs = document.querySelectorAll('.nav-menu li');
+      tabs.forEach(tab => tab.classList.remove('active'));
+
+      // Determine tab index mapping
+      let index = 0;
+      switch(tabName) {
+        case 'aktualni': index = 0; break;
+        case 'doubravka_plzen': index = 1; break;
+        case 'plzen_doubravka': index = 2; break;
+      }
+      tabs[index].classList.add('active');
+    }
+
+    // Load default content (home page) on page load
+    document.addEventListener('DOMContentLoaded', () => switchTab('aktualni'));
+  </script>
+</body>
+</html>
