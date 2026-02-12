@@ -11,8 +11,18 @@ dependencies = [
   "jinja2>=3.1",
   "pandas>=2.0",
   "requests>=2.31",
+  "tqdm>=4.66",
 ]
+
+[project.scripts]
+czptt2gtfs = "czptt2gtfs.czptt2gtfs:main"
 
 [build-system]
 requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["czptt2gtfs"]
+
+[tool.setuptools.package-data]
+czptt2gtfs = ["komercni_druhy.xml", "sr70.csv"]
