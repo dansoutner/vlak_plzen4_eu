@@ -1,0 +1,186 @@
+<?xml version="1.0"?>
+<CZPTTCISMessage xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifiers>
+    <PlannedTransportIdentifiers>
+      <ObjectType>PA</ObjectType>
+      <Company>0054</Company>
+      <Core>KT----54603A</Core>
+      <Variant>00</Variant>
+      <TimetableYear>2026</TimetableYear>
+    </PlannedTransportIdentifiers>
+    <PlannedTransportIdentifiers>
+      <ObjectType>TR</ObjectType>
+      <Company>3725</Company>
+      <Core>--KADR001929</Core>
+      <Variant>00</Variant>
+      <TimetableYear>2026</TimetableYear>
+    </PlannedTransportIdentifiers>
+  </Identifiers>
+  <CZPTTCreation>2025-11-05T17:24:40</CZPTTCreation>
+  <CZPTTHeader>
+    <CZForeignDestinationLocation>
+      <CountryCodeISO>PL</CountryCodeISO>
+      <LocationPrimaryCode>06010</LocationPrimaryCode>
+      <PrimaryLocationName>Wrocław Gł.</PrimaryLocationName>
+    </CZForeignDestinationLocation>
+  </CZPTTHeader>
+  <CZPTTInformation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53430</LocationPrimaryCode>
+        <PrimaryLocationName>Lichkov</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">3</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALD">
+          <Time>17:39:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>3725</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>11</TrafficType>
+      <CommercialTrafficType>84</CommercialTrafficType>
+      <TrainActivity>
+        <TrainActivityType>0001</TrainActivityType>
+      </TrainActivity>
+      <OperationalTrainNumber>6286</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZPublicService</Name>
+        <Value>1</Value>
+      </NetworkSpecificParameter>
+      <NetworkSpecificParameter>
+        <Name>CZPassengerPublicTransportOrderingCoName</Name>
+        <Value>Pardubický kraj</Value>
+      </NetworkSpecificParameter>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+      <NetworkSpecificParameter>
+        <Name>CZPassengerDwellTime</Name>
+        <Value>1</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53431</LocationPrimaryCode>
+        <PrimaryLocationName>Km 113,243</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>17:41:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>17:41:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>3725</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>11</TrafficType>
+      <CommercialTrafficType>84</CommercialTrafficType>
+      <OperationalTrainNumber>6286</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZPublicService</Name>
+        <Value>1</Value>
+      </NetworkSpecificParameter>
+      <NetworkSpecificParameter>
+        <Name>CZPassengerPublicTransportOrderingCoName</Name>
+        <Value>Pardubický kraj</Value>
+      </NetworkSpecificParameter>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>50440</LocationPrimaryCode>
+        <PrimaryLocationName>Lichkov státní hranice</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>17:41:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>17:41:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>3252</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>11</TrafficType>
+      <CommercialTrafficType>84</CommercialTrafficType>
+      <OperationalTrainNumber>6286</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZPublicService</Name>
+        <Value>1</Value>
+      </NetworkSpecificParameter>
+      <NetworkSpecificParameter>
+        <Name>CZPassengerPublicTransportOrderingCoName</Name>
+        <Value>Pardubický kraj</Value>
+      </NetworkSpecificParameter>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>PL</CountryCodeISO>
+        <LocationPrimaryCode>05720</LocationPrimaryCode>
+        <PrimaryLocationName>Międzylesie</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">1</LocationSubsidiaryCode>
+          <AllocationCompany>0051</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>17:46:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>3252</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>11</TrafficType>
+      <CommercialTrafficType>84</CommercialTrafficType>
+      <TrainActivity>
+        <TrainActivityType>0001</TrainActivityType>
+      </TrainActivity>
+      <OperationalTrainNumber>6286</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZPublicService</Name>
+        <Value>1</Value>
+      </NetworkSpecificParameter>
+      <NetworkSpecificParameter>
+        <Name>CZPassengerPublicTransportOrderingCoName</Name>
+        <Value>Pardubický kraj</Value>
+      </NetworkSpecificParameter>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <PlannedCalendar>
+      <BitmapDays>1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111</BitmapDays>
+      <ValidityPeriod>
+        <StartDateTime>2025-12-14T00:00:00</StartDateTime>
+        <EndDateTime>2026-12-12T00:00:00</EndDateTime>
+      </ValidityPeriod>
+    </PlannedCalendar>
+  </CZPTTInformation>
+</CZPTTCISMessage>

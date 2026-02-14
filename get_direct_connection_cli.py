@@ -165,56 +165,6 @@ DEFAULT_TEMPLATE = """
       color: #333;
       font-size: 0.92em;
     }
-    .debug-panel {
-      margin-top: 10px;
-      border: 1px solid #c8c8c8;
-      border-radius: 6px;
-      background: #fafafa;
-      overflow: hidden;
-    }
-    .debug-panel summary {
-      cursor: pointer;
-      padding: 6px 8px;
-      font-weight: bold;
-      background: #f1f1f1;
-      border-bottom: 1px solid #ddd;
-    }
-    .debug-panel pre {
-      margin: 0;
-      padding: 8px;
-      font-size: 0.82em;
-      line-height: 1.35;
-      white-space: pre-wrap;
-      word-break: break-word;
-    }
-    .endpoint-config {
-      display: grid;
-      grid-template-columns: 1fr auto auto;
-      gap: 6px;
-      padding: 8px;
-      border-bottom: 1px solid #ddd;
-      background: #f7f7f7;
-      align-items: center;
-    }
-    .endpoint-config input {
-      width: 100%;
-      min-width: 180px;
-      padding: 6px 8px;
-      border: 1px solid #bbb;
-      border-radius: 4px;
-      font-size: 0.9em;
-    }
-    .endpoint-config button {
-      padding: 6px 10px;
-      border: 1px solid #999;
-      border-radius: 4px;
-      background: #fff;
-      cursor: pointer;
-      font-size: 0.88em;
-    }
-    .endpoint-config button:hover {
-      background: #efefef;
-    }
     @media (max-width: 980px) {
       .schedule-container {
         grid-template-columns: 1fr;
@@ -273,6 +223,30 @@ DEFAULT_TEMPLATE = """
       return (parseInt(parts[0], 10) * 60) + parseInt(parts[1], 10);
     }
 
+    function parseTrainNumberFromText(value) {
+      if (!value) return null;
+      const text = String(value);
+      const match = text.match(/\\b([a-z]{1,6})\\s*([0-9]{1,6})\\b/i);
+      if (!match) return null;
+      return Number(match[2]);
+    }
+
+    function parseTrainCategoryFromText(value) {
+      if (!value) return null;
+      const text = String(value);
+      const match = text.match(/\\b([a-z]{1,6})\\s*([0-9]{1,6})\\b/i);
+      if (!match) return null;
+      return match[1];
+    }
+
+    function normalizeTrainCategory(value) {
+      if (!value) return null;
+      const text = String(value);
+      const match = text.match(/[a-z]{1,6}/i);
+      if (!match) return null;
+      return match[0].toLowerCase();
+    }
+
     function currentDayKey(now) {
       const day = now.getDay();
       if (day >= 1 && day <= 5) return "workdays";
@@ -305,6 +279,9 @@ DEFAULT_TEMPLATE = """
       const trainNumber = (record && Number.isFinite(Number(record.train_number)))
         ? Number(record.train_number)
         : null;
+      const trainCategory = normalizeTrainCategory(
+        (record && record.train_category) || parseTrainCategoryFromText(record ? record.train : "")
+      );
       const routeCodes = extractRouteCodes(record ? (record.route_text || record.route || "") : "");
       const scheduledMinutes = hhmmToMinutes(record ? (record.scheduled_time_hhmm || record.scheduled_actual_time || "") : "");
       return {
@@ -312,6 +289,7 @@ DEFAULT_TEMPLATE = """
         status,
         delayMinutes,
         trainNumber,
+        trainCategory,
         routeCodes,
         scheduledMinutes,
       };
@@ -330,14 +308,18 @@ DEFAULT_TEMPLATE = """
 
       const depTrainNumber = Number.isFinite(Number(departure.train_number))
         ? Number(departure.train_number)
-        : null;
+        : parseTrainNumberFromText(departure.route_short_name || "");
+      const depTrainCategory = normalizeTrainCategory(
+        departure.train_category || parseTrainCategoryFromText(departure.route_short_name || "")
+      );
 
       let strictCandidates = [];
       if (depTrainNumber != null) {
         strictCandidates = delayRecords.filter((record) => {
-          if (record.trainNumber == null || record.scheduledMinutes == null) return false;
+          if (record.trainNumber == null) return false;
           if (record.trainNumber !== depTrainNumber) return false;
-          return Math.abs(record.scheduledMinutes - depMinutes) <= 3;
+          if (depTrainCategory && record.trainCategory && record.trainCategory !== depTrainCategory) return false;
+          return true;
         });
       }
 
@@ -345,6 +327,18 @@ DEFAULT_TEMPLATE = """
         return { status: strictCandidates[0].status, confidence: "high", match_reason: "train_number", record: strictCandidates[0] };
       }
       if (strictCandidates.length > 1) {
+        const timeFilteredStrictCandidates = strictCandidates.filter((record) => {
+          if (record.scheduledMinutes == null) return false;
+          return Math.abs(record.scheduledMinutes - depMinutes) <= 3;
+        });
+        if (timeFilteredStrictCandidates.length === 1) {
+          return {
+            status: timeFilteredStrictCandidates[0].status,
+            confidence: "high",
+            match_reason: "train_number",
+            record: timeFilteredStrictCandidates[0],
+          };
+        }
         return { status: "unknown", confidence: "none", match_reason: "none", record: null };
       }
 
@@ -429,65 +423,6 @@ DEFAULT_TEMPLATE = """
       return getUrlEndpointOverride() || getStoredEndpointOverride();
     }
 
-    function refreshEndpointInput() {
-      const input = document.getElementById("delay-endpoint-input");
-      if (!input) return;
-      input.value = getStoredEndpointOverride() || "";
-      const urlOverride = getUrlEndpointOverride();
-      if (urlOverride) {
-        input.placeholder = `URL override active: ${urlOverride}`;
-      } else {
-        input.placeholder = "/train_delays or http://127.0.0.1:5000/train_delays";
-      }
-    }
-
-    function initEndpointControls() {
-      const input = document.getElementById("delay-endpoint-input");
-      const saveButton = document.getElementById("delay-endpoint-save");
-      const clearButton = document.getElementById("delay-endpoint-clear");
-      if (!input || !saveButton || !clearButton) return;
-
-      refreshEndpointInput();
-
-      saveButton.addEventListener("click", () => {
-        setStoredEndpointOverride(input.value);
-        refreshEndpointInput();
-        refreshView();
-      });
-
-      clearButton.addEventListener("click", () => {
-        setStoredEndpointOverride("");
-        refreshEndpointInput();
-        refreshView();
-      });
-    }
-
-    function renderDebugPanel(dayKey) {
-      const debugOutput = document.getElementById("delay-debug-output");
-      if (!debugOutput) return;
-
-      const lines = [
-        `day_key: ${dayKey}`,
-        `last_update_iso: ${debugState.last_update_iso || "-"}`,
-        `fetch_ok: ${debugState.fetch_ok}`,
-        `fetch_endpoint: ${debugState.fetch_endpoint || "-"}`,
-        `fetch_http_status: ${debugState.fetch_http_status || "-"}`,
-        `fetch_error: ${debugState.fetch_error || "-"}`,
-        `fetch_attempts: ${(debugState.fetch_attempts || []).join(" | ") || "-"}`,
-        `endpoint_override: ${debugState.endpoint_override || "-"}`,
-        `endpoint_candidates: ${(debugState.endpoint_candidates || []).join(" | ") || "-"}`,
-        `delay_records_count: ${debugState.records_count}`,
-        `current_selected_count: ${debugState.current_selected_count}`,
-        `current_match_confidence: high=${debugState.current_match_confidence.high}, medium=${debugState.current_match_confidence.medium}, unknown=${debugState.current_match_confidence.unknown}`,
-        `current_status_counts: ${countsToText(debugState.current_status_counts)}`,
-        `current_match_reasons: ${countsToText(debugState.current_match_reasons)}`,
-        `current_train_number_availability: with=${debugState.current_train_number_availability.with_train_number}, without=${debugState.current_train_number_availability.without_train_number}`,
-        `static_candidate_minutes: ${debugState.static_candidate_minutes}`,
-        `static_annotated_minutes: ${debugState.static_annotated_minutes}`
-      ];
-      debugOutput.textContent = lines.join("\\n");
-    }
-
     function highlightCurrentHour(dayKey, currentHour) {
       const rows = document.querySelectorAll(`.${dayKey} tbody tr`);
       rows.forEach((row) => {
@@ -556,7 +491,7 @@ DEFAULT_TEMPLATE = """
         reasonCounts[reason] = (reasonCounts[reason] || 0) + 1;
         const departureTrainNumber = Number.isFinite(Number(departure.train_number))
           ? Number(departure.train_number)
-          : null;
+          : parseTrainNumberFromText(departure.route_short_name || "");
         if (departureTrainNumber == null) trainNumberAvailability.without_train_number += 1;
         else trainNumberAvailability.with_train_number += 1;
 
@@ -598,18 +533,17 @@ DEFAULT_TEMPLATE = """
       });
     }
 
-    function annotateStaticMinutes() {
+    function annotateStaticMinutes(activeDayKey) {
       clearMinuteBadges();
 
       const minuteMatches = {};
-      Object.entries(timetableDepartures || {}).forEach(([dayKey, departures]) => {
-        (departures || []).forEach((departure) => {
-          const match = matchDeparture(departure, latestDelayRecords);
-          if (match.confidence !== "high") return;
-          const key = `${dayKey}|${departure.hour}|${departure.minute}`;
-          if (!minuteMatches[key]) minuteMatches[key] = [];
-          minuteMatches[key].push(match);
-        });
+      const departuresForActiveDay = (timetableDepartures && timetableDepartures[activeDayKey]) || [];
+      departuresForActiveDay.forEach((departure) => {
+        const match = matchDeparture(departure, latestDelayRecords);
+        if (match.confidence !== "high") return;
+        const key = `${activeDayKey}|${departure.hour}|${departure.minute}`;
+        if (!minuteMatches[key]) minuteMatches[key] = [];
+        minuteMatches[key].push(match);
       });
 
       let annotatedMinutes = 0;
@@ -708,7 +642,7 @@ DEFAULT_TEMPLATE = """
       highlightCurrentHour(dayKey, now.getHours());
       await refreshDelays();
       const currentStats = renderCurrentDepartures(dayKey);
-      const staticStats = annotateStaticMinutes();
+      const staticStats = annotateStaticMinutes(dayKey);
       debugState.current_selected_count = currentStats.selectedCount;
       debugState.current_match_confidence = currentStats.confidenceCounts;
       debugState.current_status_counts = currentStats.statusCounts;
@@ -716,11 +650,9 @@ DEFAULT_TEMPLATE = """
       debugState.current_train_number_availability = currentStats.trainNumberAvailability;
       debugState.static_candidate_minutes = staticStats.candidateMinutes;
       debugState.static_annotated_minutes = staticStats.annotatedMinutes;
-      renderDebugPanel(dayKey);
     }
 
     document.addEventListener("DOMContentLoaded", () => {
-      initEndpointControls();
       refreshView();
       window.setInterval(refreshView, 60 * 1000);
     });
@@ -729,31 +661,6 @@ DEFAULT_TEMPLATE = """
 <body>
   <div class="stack">
     <h1>{{ title }}</h1>
-
-    <section class="card">
-      <div class="card-header">Aktualni odjezdy</div>
-      <div class="card-content">
-        <div id="current-day-label"></div>
-        <table id="current-table">
-          <thead>
-            <tr><th>Cas</th><th>Linka</th><th>Smer</th><th>Zpozdeni</th></tr>
-          </thead>
-          <tbody id="current-departures-body">
-            <tr><td colspan="4">Nacitam data...</td></tr>
-          </tbody>
-        </table>
-        <p class="meta-note">Stavy se aktualizuji kazdych 60 sekund. Chybejici zaznam znamena neznamy stav, ne vcasny vlak.</p>
-        <details class="debug-panel" open>
-          <summary>Debug info (delay integration)</summary>
-          <div class="endpoint-config">
-            <input id="delay-endpoint-input" type="text">
-            <button id="delay-endpoint-save" type="button">Save endpoint</button>
-            <button id="delay-endpoint-clear" type="button">Clear</button>
-          </div>
-          <pre id="delay-debug-output">Nacitam debug info...</pre>
-        </details>
-      </div>
-    </section>
 
   <div class="schedule-container">
     <div class="schedule-section workdays">
@@ -792,6 +699,22 @@ DEFAULT_TEMPLATE = """
       </table>
     </div>
   </div>
+
+    <section class="card">
+      <div class="card-header">Aktualni odjezdy</div>
+      <div class="card-content">
+        <div id="current-day-label"></div>
+        <table id="current-table">
+          <thead>
+            <tr><th>Cas</th><th>Linka</th><th>Smer</th><th>Zpozdeni</th></tr>
+          </thead>
+          <tbody id="current-departures-body">
+            <tr><td colspan="4">Nacitam data...</td></tr>
+          </tbody>
+        </table>
+        <p class="meta-note">Stavy se aktualizuji kazdych 60 sekund. Chybejici zaznam znamena neznamy stav, ne vcasny vlak.</p>
+      </div>
+    </section>
   </div>
 </body>
 </html>
@@ -879,18 +802,28 @@ def match_departure_to_delay_records(departure: dict[str, Any], delay_records: l
     if dep_minutes is None:
         return {"status": "unknown", "confidence": "none", "match_reason": "none", "record": None}
 
+    dep_train_category = departure.get("train_category")
     dep_train_number = departure.get("train_number")
+    parsed_category, parsed_number = parse_train_identity(departure.get("route_short_name"))
+    if dep_train_category is None:
+        dep_train_category = parsed_category
+    if dep_train_number is None:
+        dep_train_number = parsed_number
+
+    dep_train_category_norm = normalize_for_matching(dep_train_category) if dep_train_category else None
     strict_candidates: list[dict[str, Any]] = []
     if dep_train_number is not None:
         for record in delay_records:
             record_train_number = record.get("train_number")
-            record_minutes = hhmm_to_minutes(record.get("scheduled_time_hhmm") or record.get("scheduled_actual_time"))
-            if record_train_number is None or record_minutes is None:
+            if record_train_number is None:
                 continue
             if int(record_train_number) != int(dep_train_number):
                 continue
-            if abs(record_minutes - dep_minutes) <= 3:
-                strict_candidates.append(record)
+            record_train_category = record.get("train_category")
+            if dep_train_category_norm and record_train_category:
+                if normalize_for_matching(record_train_category) != dep_train_category_norm:
+                    continue
+            strict_candidates.append(record)
 
     if len(strict_candidates) == 1:
         return {
@@ -900,6 +833,20 @@ def match_departure_to_delay_records(departure: dict[str, Any], delay_records: l
             "record": strict_candidates[0],
         }
     if len(strict_candidates) > 1:
+        time_filtered_candidates: list[dict[str, Any]] = []
+        for record in strict_candidates:
+            record_minutes = hhmm_to_minutes(record.get("scheduled_time_hhmm") or record.get("scheduled_actual_time"))
+            if record_minutes is None:
+                continue
+            if abs(record_minutes - dep_minutes) <= 3:
+                time_filtered_candidates.append(record)
+        if len(time_filtered_candidates) == 1:
+            return {
+                "status": time_filtered_candidates[0].get("status", "unknown"),
+                "confidence": "high",
+                "match_reason": "train_number",
+                "record": time_filtered_candidates[0],
+            }
         return {"status": "unknown", "confidence": "none", "match_reason": "none", "record": None}
 
     dep_route_codes = extract_route_codes(departure.get("route_short_name"))
@@ -962,6 +909,11 @@ def build_departure_records(rows: pd.DataFrame, station_id_from: str, station_id
             continue
         hh, mm, _ = str(departure_time).split(":")
         train_category, train_number = parse_train_identity(row.get("trip_short_name"))
+        if train_number is None:
+            fallback_category, fallback_number = parse_train_identity(row.get("route_short_name"))
+            if fallback_number is not None:
+                train_category = fallback_category
+                train_number = fallback_number
         records.append({
             "trip_id": safe_text(row.get("trip_id")),
             "route_id": safe_text(row.get("route_id")),

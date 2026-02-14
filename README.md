@@ -66,9 +66,11 @@ The generated HTML pages now:
 1. Show an **Aktualni odjezdy** block (current departures for active day).
 2. Poll `/train_delays` every 60 seconds.
 3. Match delay records to departures:
-   - strict match: `train_number` + scheduled time tolerance (`<= 3 min`) -> **high** confidence
+   - strict match: unique `train_number` (and optional train-category check) -> **high** confidence
+   - strict tie-breaker: if duplicate `train_number` exists, use scheduled time tolerance (`<= 3 min`)
    - fallback match: exact route-code overlap + scheduled time tolerance (`<= 3 min`) -> **medium** confidence
 4. For static hour/minute tables:
+   - annotate only the active day bucket (today)
    - annotate minute chips only for **high-confidence** matches
    - keep unknown or ambiguous minutes unannotated
 5. Missing record in `/train_delays` is treated as **unknown**, not on-time.

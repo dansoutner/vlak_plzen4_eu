@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <title>Jizdni rad</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #fff;
+      color: #000;
+      min-height: 100vh;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 24px;
+      font-size: 1.8em;
+    }
+    h2 {
+      font-size: 1.1em;
+      margin-bottom: 10px;
+    }
+    .meta-note {
+      color: #555;
+      font-size: 0.9em;
+      margin-top: 8px;
+    }
+    .stack {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .card {
+      border: 1px solid #bbb;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #fff;
+    }
+    .card-header {
+      font-size: 1.05em;
+      font-weight: bold;
+      padding: 10px 12px;
+      background: #efefef;
+      border-bottom: 1px solid #bbb;
+    }
+    .card-content {
+      padding: 10px 12px;
+    }
+    .schedule-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .schedule-section {
+      border: 1px solid #bbb;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .day-heading {
+      font-size: 1.05em;
+      font-weight: bold;
+      padding: 10px 12px;
+      background: #efefef;
+      border-bottom: 1px solid #bbb;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border-bottom: 1px solid #ddd;
+      padding: 6px 10px;
+      text-align: center;
+    }
+    th {
+      background: #f7f7f7;
+    }
+    tbody tr:hover {
+      background: #f9f9f9;
+    }
+    .current-hour {
+      background: #d9e9ff;
+    }
+    .minutes-cell {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: center;
+      align-items: center;
+    }
+    .minute-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 1px 4px;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      font-variant-numeric: tabular-nums;
+    }
+    .minute-chip.has-status {
+      border-color: #bbb;
+      background: #f7f7f7;
+    }
+    .minute-badge {
+      font-size: 0.75em;
+      font-weight: bold;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .status-on_time { color: #0b7a3b; }
+    .status-delayed { color: #b45309; }
+    .status-canceled { color: #b91c1c; }
+    .status-diverted { color: #7e22ce; }
+    .status-disruption { color: #a21caf; }
+    .status-unknown { color: #555; }
+    #current-table td, #current-table th {
+      padding: 7px 8px;
+      text-align: left;
+    }
+    #current-table td.time-cell {
+      width: 62px;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+    #current-table td.route-cell {
+      width: 72px;
+      text-align: center;
+      font-weight: bold;
+    }
+    #current-table td.delay-cell {
+      width: 92px;
+      text-align: center;
+      font-weight: bold;
+      font-variant-numeric: tabular-nums;
+    }
+    #current-day-label {
+      margin-bottom: 8px;
+      color: #333;
+      font-size: 0.92em;
+    }
+    @media (max-width: 980px) {
+      .schedule-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+  <script>
+    const timetableDepartures = {"workdays": [{"trip_id": "KASO--416901", "route_id": "KASO--416901", "route_short_name": "Os 7841", "route_long_name": "Plzeň hlavní nádraží - Rokycany", "departure_time": "00:53:00", "hour": 0, "minute": "53", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7841}, {"trip_id": "KASO--417101", "route_id": "KASO--417101", "route_short_name": "Os 7843", "route_long_name": "Plzeň hlavní nádraží - Rokycany", "departure_time": "05:00:00", "hour": 5, "minute": "00", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7843}, {"trip_id": "KASO--910401", "route_id": "KASO--910401", "route_short_name": "Os 27321", "route_long_name": "Plzeň hlavní nádraží - Radnice", "departure_time": "05:24:00", "hour": 5, "minute": "24", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 27321}, {"trip_id": "KASO--419001", "route_id": "KASO--419001", "route_short_name": "Os 7871", "route_long_name": "Přeštice - Rokycany", "departure_time": "05:41:00", "hour": 5, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7871}, {"trip_id": "KASO-1318701", "route_id": "KASO-1318701", "route_short_name": "Os 7803", "route_long_name": "Plzeň hlavní nádraží - Beroun", "departure_time": "06:03:00", "hour": 6, "minute": "03", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7803}, {"trip_id": "KASO--414201", "route_id": "KASO--414201", "route_short_name": "Os 7805", "route_long_name": "Přeštice - Hořovice", "departure_time": "06:41:00", "hour": 6, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7805}, {"trip_id": "KASO--909001", "route_id": "KASO--909001", "route_short_name": "Os 27301", "route_long_name": "Bezdružice - Radnice", "departure_time": "07:03:00", "hour": 7, "minute": "03", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 27301}, {"trip_id": "KASO--417301", "route_id": "KASO--417301", "route_short_name": "Os 7845", "route_long_name": "Plzeň hlavní nádraží - Rokycany", "departure_time": "07:11:00", "hour": 7, "minute": "11", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7845}, {"trip_id": "KASO--414401", "route_id": "KASO--414401", "route_short_name": "Os 7807", "route_long_name": "Klatovy - Hořovice", "departure_time": "07:41:00", "hour": 7, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7807}, {"trip_id": "KASO--414601", "route_id": "KASO--414601", "route_short_name": "Os 7809", "route_long_name": "Přeštice - Beroun", "departure_time": "08:41:00", "hour": 8, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7809}, {"trip_id": "KASO--909201", "route_id": "KASO--909201", "route_short_name": "Os 27303", "route_long_name": "Bezdružice - Radnice", "departure_time": "09:03:00", "hour": 9, "minute": "03", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 27303}, {"trip_id": "KASO---79301", "route_id": "KASO---79301", "route_short_name": "Sp 1701", "route_long_name": "Berounka (Klatovy - Rokycany)", "departure_time": "09:21:00", "hour": 9, "minute": "21", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Sp", "train_number": 1701}, {"trip_id": "KASO--419202", "route_id": "KASO--419202", "route_short_name": "Os 7873", "route_long_name": "Plzeň hlavní nádraží - Rokycany", "departure_time": "09:41:00", "hour": 9, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7873}, {"trip_id": "KASO--414801", "route_id": "KASO--414801", "route_short_name": "Os 7811", "route_long_name": "Plzeň hlavní nádraží - Beroun", "departure_time": "10:41:00", "hour": 10, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7811}, {"trip_id": "KASO--909401", "route_id": "KASO--909401", "route_short_name": "Os 27305", "route_long_name": "Bezdružice - Radnice", "departure_time": "11:09:00", "hour": 11, "minute": "09", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 27305}, {"trip_id": "KASO---79501", "route_id": "KASO---79501", "route_short_name": "Sp 1703", "route_long_name": "Berounka (Klatovy - Rokycany)", "departure_time": "11:21:00", "hour": 11, "minute": "21", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Sp", "train_number": 1703}, {"trip_id": "KASO--419401", "route_id": "KASO--419401", "route_short_name": "Os 7875", "route_long_name": "Přeštice - Rokycany", "departure_time": "11:41:00", "hour": 11, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7875}, {"trip_id": "KASO--415101", "route_id": "KASO--415101", "route_short_name": "Os 7815", "route_long_name": "Plzeň hlavní nádraží - Beroun", "departure_time": "12:41:00", "hour": 12, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7815}, {"trip_id": "KASO--910601", "route_id": "KASO--910601", "route_short_name": "Os 27323", "route_long_name": "Plzeň hlavní nádraží - Radnice", "departure_time": "13:03:00", "hour": 13, "minute": "03", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 27323}, {"trip_id": "KASO--417701", "route_id": "KASO--417701", "route_short_name": "Sp 7849", "route_long_name": "Plzeň hlavní nádraží - Rokycany", "departure_time": "13:08:00", "hour": 13, "minute": "08", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Sp", "train_number": 7849}, {"trip_id": "KASO--415302", "route_id": "KASO--415302", "route_short_name": "Os 7817", "route_long_name": "Přeštice - Hořovice", "departure_time": "13:41:00", "hour": 13, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7817}, {"trip_id": "KASO--417901", "route_id": "KASO--417901", "route_short_name": "Sp 7851", "route_long_name": "Plzeň hlavní nádraží - Rokycany", "departure_time": "14:03:00", "hour": 14, "minute": "03", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Sp", "train_number": 7851}, {"trip_id": "KASO--912201", "route_id": "KASO--912201", "route_short_name": "Os 27341", "route_long_name": "Plzeň hlavní nádraží - Stupno", "departure_time": "14:11:00", "hour": 14, "minute": "11", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 27341}, {"trip_id": "KASO--415501", "route_id": "KASO--415501", "route_short_name": "Os 7819", "route_long_name": "Přeštice - Beroun", "departure_time": "14:41:00", "hour": 14, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7819}, {"trip_id": "KASO--909801", "route_id": "KASO--909801", "route_short_name": "Os 27309", "route_long_name": "Bezdružice - Radnice", "departure_time": "15:03:00", "hour": 15, "minute": "03", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 27309}, {"trip_id": "KASO--418101", "route_id": "KASO--418101", "route_short_name": "Sp 7853", "route_long_name": "Plzeň hlavní nádraží - Rokycany", "departure_time": "15:08:00", "hour": 15, "minute": "08", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Sp", "train_number": 7853}, {"trip_id": "KASO--415702", "route_id": "KASO--415702", "route_short_name": "Os 7821", "route_long_name": "Přeštice - Hořovice", "departure_time": "15:41:00", "hour": 15, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7821}, {"trip_id": "KASO--418301", "route_id": "KASO--418301", "route_short_name": "Sp 7855", "route_long_name": "Plzeň hlavní nádraží - Rokycany", "departure_time": "16:03:00", "hour": 16, "minute": "03", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Sp", "train_number": 7855}, {"trip_id": "KASO--910701", "route_id": "KASO--910701", "route_short_name": "Os 27343", "route_long_name": "Plzeň hlavní nádraží - Stupno", "departure_time": "16:11:00", "hour": 16, "minute": "11", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 27343}, {"trip_id": "KASO--415901", "route_id": "KASO--415901", "route_short_name": "Os 7823", "route_long_name": "Přeštice - Beroun", "departure_time": "16:41:00", "hour": 16, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7823}, {"trip_id": "KASO--418501", "route_id": "KASO--418501", "route_short_name": "Sp 7857", "route_long_name": "Plzeň hlavní nádraží - Rokycany", "departure_time": "17:03:00", "hour": 17, "minute": "03", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Sp", "train_number": 7857}, {"trip_id": "KASO--910001", "route_id": "KASO--910001", "route_short_name": "Os 27311", "route_long_name": "Bezdružice - Radnice", "departure_time": "17:09:00", "hour": 17, "minute": "09", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 27311}, {"trip_id": "KASO--416102", "route_id": "KASO--416102", "route_short_name": "Os 7825", "route_long_name": "Přeštice - Hořovice", "departure_time": "17:41:00", "hour": 17, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7825}, {"trip_id": "KASO--418601", "route_id": "KASO--418601", "route_short_name": "Sp 7859", "route_long_name": "Plzeň hlavní nádraží - Rokycany", "departure_time": "18:03:00", "hour": 18, "minute": "03", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Sp", "train_number": 7859}, {"trip_id": "KASO--911501", "route_id": "KASO--911501", "route_short_name": "Os 27375", "route_long_name": "Plzeň hlavní nádraží - Chrást u Plzně zastávka", "departure_time": "18:15:00", "hour": 18, "minute": "15", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 27375}, {"trip_id": "KASO--416301", "route_id": "KASO--416301", "route_short_name": "Os 7827", "route_long_name": "Přeštice - Beroun", "departure_time": "18:41:00", "hour": 18, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7827}, {"trip_id": "KASO--910201", "route_id": "KASO--910201", "route_short_name": "Os 27313", "route_long_name": "Bezdružice - Radnice", "departure_time": "19:09:00", "hour": 19, "minute": "09", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 27313}, {"trip_id": "KASO--418801", "route_id": "KASO--418801", "route_short_name": "Os 7861", "route_long_name": "Plzeň hlavní nádraží - Rokycany", "departure_time": "19:41:00", "hour": 19, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7861}, {"trip_id": "KASO--416601", "route_id": "KASO--416601", "route_short_name": "Os 7831", "route_long_name": "Plzeň hlavní nádraží - Beroun", "departure_time": "20:41:00", "hour": 20, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7831}, {"trip_id": "KASO--925201", "route_id": "KASO--925201", "route_short_name": "Os 27852", "route_long_name": "Plzeň hlavní nádraží - Mirošov město", "departure_time": "21:14:00", "hour": 21, "minute": "14", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 27852}, {"trip_id": "KASO--923701", "route_id": "KASO--923701", "route_short_name": "Os 27828", "route_long_name": "Plzeň hlavní nádraží - Příkosice", "departure_time": "22:16:00", "hour": 22, "minute": "16", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 27828}, {"trip_id": "KASO--416701", "route_id": "KASO--416701", "route_short_name": "Os 7833", "route_long_name": "Plzeň hlavní nádraží - Hořovice", "departure_time": "22:47:00", "hour": 22, "minute": "47", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7833}, {"trip_id": "KASO--910801", "route_id": "KASO--910801", "route_short_name": "Os 27327", "route_long_name": "Plzeň hlavní nádraží - Radnice", "departure_time": "22:57:00", "hour": 22, "minute": "57", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 27327}], "saturday": [{"trip_id": "KASO--416901", "route_id": "KASO--416901", "route_short_name": "Os 7841", "route_long_name": "Plzeň hlavní nádraží - Rokycany", "departure_time": "00:53:00", "hour": 0, "minute": "53", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7841}, {"trip_id": "KASO--419002", "route_id": "KASO--419002", "route_short_name": "Os 7871", "route_long_name": "Plzeň hlavní nádraží - Rokycany", "departure_time": "05:41:00", "hour": 5, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7871}, {"trip_id": "KASO-1319801", "route_id": "KASO-1319801", "route_short_name": "Os 7885", "route_long_name": "Plzeň hlavní nádraží - Beroun", "departure_time": "06:41:00", "hour": 6, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7885}, {"trip_id": "KASO--909001", "route_id": "KASO--909001", "route_short_name": "Os 27301", "route_long_name": "Bezdružice - Radnice", "departure_time": "07:03:00", "hour": 7, "minute": "03", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 27301}, {"trip_id": "KASO--414402", "route_id": "KASO--414402", "route_short_name": "Os 7807", "route_long_name": "Přeštice - Rokycany", "departure_time": "07:41:00", "hour": 7, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7807}, {"trip_id": "KASO--414602", "route_id": "KASO--414602", "route_short_name": "Os 7809", "route_long_name": "Plzeň hlavní nádraží - Beroun", "departure_time": "08:41:00", "hour": 8, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7809}, {"trip_id": "KASO--909201", "route_id": "KASO--909201", "route_short_name": "Os 27303", "route_long_name": "Bezdružice - Radnice", "departure_time": "09:03:00", "hour": 9, "minute": "03", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 27303}, {"trip_id": "KASO---79301", "route_id": "KASO---79301", "route_short_name": "Sp 1701", "route_long_name": "Berounka (Klatovy - Rokycany)", "departure_time": "09:21:00", "hour": 9, "minute": "21", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Sp", "train_number": 1701}, {"trip_id": "KASO--419201", "route_id": "KASO--419201", "route_short_name": "Os 7873", "route_long_name": "Přeštice - Rokycany", "departure_time": "09:41:00", "hour": 9, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7873}, {"trip_id": "KASO--414801", "route_id": "KASO--414801", "route_short_name": "Os 7811", "route_long_name": "Plzeň hlavní nádraží - Beroun", "departure_time": "10:41:00", "hour": 10, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7811}, {"trip_id": "KASO--909401", "route_id": "KASO--909401", "route_short_name": "Os 27305", "route_long_name": "Bezdružice - Radnice", "departure_time": "11:09:00", "hour": 11, "minute": "09", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 27305}, {"trip_id": "KASO---79501", "route_id": "KASO---79501", "route_short_name": "Sp 1703", "route_long_name": "Berounka (Klatovy - Rokycany)", "departure_time": "11:21:00", "hour": 11, "minute": "21", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Sp", "train_number": 1703}, {"trip_id": "KASO--419401", "route_id": "KASO--419401", "route_short_name": "Os 7875", "route_long_name": "Přeštice - Rokycany", "departure_time": "11:41:00", "hour": 11, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7875}, {"trip_id": "KASO--415101", "route_id": "KASO--415101", "route_short_name": "Os 7815", "route_long_name": "Plzeň hlavní nádraží - Beroun", "departure_time": "12:41:00", "hour": 12, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7815}, {"trip_id": "KASO--909602", "route_id": "KASO--909602", "route_short_name": "Os 27307", "route_long_name": "Bezdružice - Radnice", "departure_time": "13:09:00", "hour": 13, "minute": "09", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 27307}, {"trip_id": "KASO--415301", "route_id": "KASO--415301", "route_short_name": "Os 7817", "route_long_name": "Přeštice - Rokycany", "departure_time": "13:41:00", "hour": 13, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7817}, {"trip_id": "KASO--415502", "route_id": "KASO--415502", "route_short_name": "Os 7819", "route_long_name": "Plzeň hlavní nádraží - Beroun", "departure_time": "14:41:00", "hour": 14, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7819}, {"trip_id": "KASO--909801", "route_id": "KASO--909801", "route_short_name": "Os 27309", "route_long_name": "Bezdružice - Radnice", "departure_time": "15:03:00", "hour": 15, "minute": "03", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 27309}, {"trip_id": "KASO--415701", "route_id": "KASO--415701", "route_short_name": "Os 7821", "route_long_name": "Přeštice - Rokycany", "departure_time": "15:41:00", "hour": 15, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7821}, {"trip_id": "KASO--415902", "route_id": "KASO--415902", "route_short_name": "Os 7823", "route_long_name": "Plzeň hlavní nádraží - Beroun", "departure_time": "16:41:00", "hour": 16, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7823}, {"trip_id": "KASO--910001", "route_id": "KASO--910001", "route_short_name": "Os 27311", "route_long_name": "Bezdružice - Radnice", "departure_time": "17:09:00", "hour": 17, "minute": "09", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 27311}, {"trip_id": "KASO--416101", "route_id": "KASO--416101", "route_short_name": "Os 7825", "route_long_name": "Přeštice - Rokycany", "departure_time": "17:41:00", "hour": 17, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7825}, {"trip_id": "KASO--416302", "route_id": "KASO--416302", "route_short_name": "Os 7827", "route_long_name": "Plzeň hlavní nádraží - Beroun", "departure_time": "18:41:00", "hour": 18, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7827}, {"trip_id": "KASO--910201", "route_id": "KASO--910201", "route_short_name": "Os 27313", "route_long_name": "Bezdružice - Radnice", "departure_time": "19:09:00", "hour": 19, "minute": "09", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 27313}, {"trip_id": "KASO--418801", "route_id": "KASO--418801", "route_short_name": "Os 7861", "route_long_name": "Plzeň hlavní nádraží - Rokycany", "departure_time": "19:41:00", "hour": 19, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7861}, {"trip_id": "KASO--416601", "route_id": "KASO--416601", "route_short_name": "Os 7831", "route_long_name": "Plzeň hlavní nádraží - Beroun", "departure_time": "20:41:00", "hour": 20, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7831}, {"trip_id": "KASO--925201", "route_id": "KASO--925201", "route_short_name": "Os 27852", "route_long_name": "Plzeň hlavní nádraží - Mirošov město", "departure_time": "21:14:00", "hour": 21, "minute": "14", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 27852}, {"trip_id": "KASO--923701", "route_id": "KASO--923701", "route_short_name": "Os 27828", "route_long_name": "Plzeň hlavní nádraží - Příkosice", "departure_time": "22:16:00", "hour": 22, "minute": "16", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 27828}, {"trip_id": "KASO--416701", "route_id": "KASO--416701", "route_short_name": "Os 7833", "route_long_name": "Plzeň hlavní nádraží - Hořovice", "departure_time": "22:47:00", "hour": 22, "minute": "47", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7833}, {"trip_id": "KASO--910801", "route_id": "KASO--910801", "route_short_name": "Os 27327", "route_long_name": "Plzeň hlavní nádraží - Radnice", "departure_time": "22:57:00", "hour": 22, "minute": "57", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 27327}], "sunday": [{"trip_id": "KASO--416901", "route_id": "KASO--416901", "route_short_name": "Os 7841", "route_long_name": "Plzeň hlavní nádraží - Rokycany", "departure_time": "00:53:00", "hour": 0, "minute": "53", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7841}, {"trip_id": "KASO--419002", "route_id": "KASO--419002", "route_short_name": "Os 7871", "route_long_name": "Plzeň hlavní nádraží - Rokycany", "departure_time": "05:41:00", "hour": 5, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7871}, {"trip_id": "KASO-1319801", "route_id": "KASO-1319801", "route_short_name": "Os 7885", "route_long_name": "Plzeň hlavní nádraží - Beroun", "departure_time": "06:41:00", "hour": 6, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7885}, {"trip_id": "KASO--909001", "route_id": "KASO--909001", "route_short_name": "Os 27301", "route_long_name": "Bezdružice - Radnice", "departure_time": "07:03:00", "hour": 7, "minute": "03", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 27301}, {"trip_id": "KASO--414403", "route_id": "KASO--414403", "route_short_name": "Os 7807", "route_long_name": "Plzeň hlavní nádraží - Rokycany", "departure_time": "07:41:00", "hour": 7, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7807}, {"trip_id": "KASO--414602", "route_id": "KASO--414602", "route_short_name": "Os 7809", "route_long_name": "Plzeň hlavní nádraží - Beroun", "departure_time": "08:41:00", "hour": 8, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7809}, {"trip_id": "KASO--909201", "route_id": "KASO--909201", "route_short_name": "Os 27303", "route_long_name": "Bezdružice - Radnice", "departure_time": "09:03:00", "hour": 9, "minute": "03", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 27303}, {"trip_id": "KASO---79301", "route_id": "KASO---79301", "route_short_name": "Sp 1701", "route_long_name": "Berounka (Klatovy - Rokycany)", "departure_time": "09:21:00", "hour": 9, "minute": "21", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Sp", "train_number": 1701}, {"trip_id": "KASO--419201", "route_id": "KASO--419201", "route_short_name": "Os 7873", "route_long_name": "Přeštice - Rokycany", "departure_time": "09:41:00", "hour": 9, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7873}, {"trip_id": "KASO--414801", "route_id": "KASO--414801", "route_short_name": "Os 7811", "route_long_name": "Plzeň hlavní nádraží - Beroun", "departure_time": "10:41:00", "hour": 10, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7811}, {"trip_id": "KASO--909401", "route_id": "KASO--909401", "route_short_name": "Os 27305", "route_long_name": "Bezdružice - Radnice", "departure_time": "11:09:00", "hour": 11, "minute": "09", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 27305}, {"trip_id": "KASO---79501", "route_id": "KASO---79501", "route_short_name": "Sp 1703", "route_long_name": "Berounka (Klatovy - Rokycany)", "departure_time": "11:21:00", "hour": 11, "minute": "21", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Sp", "train_number": 1703}, {"trip_id": "KASO--419401", "route_id": "KASO--419401", "route_short_name": "Os 7875", "route_long_name": "Přeštice - Rokycany", "departure_time": "11:41:00", "hour": 11, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7875}, {"trip_id": "KASO--415101", "route_id": "KASO--415101", "route_short_name": "Os 7815", "route_long_name": "Plzeň hlavní nádraží - Beroun", "departure_time": "12:41:00", "hour": 12, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7815}, {"trip_id": "KASO--909602", "route_id": "KASO--909602", "route_short_name": "Os 27307", "route_long_name": "Bezdružice - Radnice", "departure_time": "13:09:00", "hour": 13, "minute": "09", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 27307}, {"trip_id": "KASO--415301", "route_id": "KASO--415301", "route_short_name": "Os 7817", "route_long_name": "Přeštice - Rokycany", "departure_time": "13:41:00", "hour": 13, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7817}, {"trip_id": "KASO--415502", "route_id": "KASO--415502", "route_short_name": "Os 7819", "route_long_name": "Plzeň hlavní nádraží - Beroun", "departure_time": "14:41:00", "hour": 14, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7819}, {"trip_id": "KASO--909801", "route_id": "KASO--909801", "route_short_name": "Os 27309", "route_long_name": "Bezdružice - Radnice", "departure_time": "15:03:00", "hour": 15, "minute": "03", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 27309}, {"trip_id": "KASO--415701", "route_id": "KASO--415701", "route_short_name": "Os 7821", "route_long_name": "Přeštice - Rokycany", "departure_time": "15:41:00", "hour": 15, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7821}, {"trip_id": "KASO--415902", "route_id": "KASO--415902", "route_short_name": "Os 7823", "route_long_name": "Plzeň hlavní nádraží - Beroun", "departure_time": "16:41:00", "hour": 16, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7823}, {"trip_id": "KASO--910001", "route_id": "KASO--910001", "route_short_name": "Os 27311", "route_long_name": "Bezdružice - Radnice", "departure_time": "17:09:00", "hour": 17, "minute": "09", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 27311}, {"trip_id": "KASO--416101", "route_id": "KASO--416101", "route_short_name": "Os 7825", "route_long_name": "Přeštice - Rokycany", "departure_time": "17:41:00", "hour": 17, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7825}, {"trip_id": "KASO--416302", "route_id": "KASO--416302", "route_short_name": "Os 7827", "route_long_name": "Plzeň hlavní nádraží - Beroun", "departure_time": "18:41:00", "hour": 18, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7827}, {"trip_id": "KASO--910201", "route_id": "KASO--910201", "route_short_name": "Os 27313", "route_long_name": "Bezdružice - Radnice", "departure_time": "19:09:00", "hour": 19, "minute": "09", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 27313}, {"trip_id": "KASO--418801", "route_id": "KASO--418801", "route_short_name": "Os 7861", "route_long_name": "Plzeň hlavní nádraží - Rokycany", "departure_time": "19:41:00", "hour": 19, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7861}, {"trip_id": "KASO--416601", "route_id": "KASO--416601", "route_short_name": "Os 7831", "route_long_name": "Plzeň hlavní nádraží - Beroun", "departure_time": "20:41:00", "hour": 20, "minute": "41", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7831}, {"trip_id": "KASO--925201", "route_id": "KASO--925201", "route_short_name": "Os 27852", "route_long_name": "Plzeň hlavní nádraží - Mirošov město", "departure_time": "21:14:00", "hour": 21, "minute": "14", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 27852}, {"trip_id": "KASO--923701", "route_id": "KASO--923701", "route_short_name": "Os 27828", "route_long_name": "Plzeň hlavní nádraží - Příkosice", "departure_time": "22:16:00", "hour": 22, "minute": "16", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 27828}, {"trip_id": "KASO--416701", "route_id": "KASO--416701", "route_short_name": "Os 7833", "route_long_name": "Plzeň hlavní nádraží - Hořovice", "departure_time": "22:47:00", "hour": 22, "minute": "47", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 7833}, {"trip_id": "KASO--910801", "route_id": "KASO--910801", "route_short_name": "Os 27327", "route_long_name": "Plzeň hlavní nádraží - Radnice", "departure_time": "22:57:00", "hour": 22, "minute": "57", "from_stop_id": "73275", "to_stop_id": "73265", "train_category": "Os", "train_number": 27327}]};
+    const DAY_LABELS = {
+      workdays: "Pracovni dny",
+      saturday: "Sobota",
+      sunday: "Nedele"
+    };
+    const ENDPOINT_OVERRIDE_KEY = "train_delays_endpoint_override";
+
+    let latestDelayRecords = [];
+    const debugState = {
+      fetch_ok: false,
+      fetch_endpoint: null,
+      fetch_http_status: null,
+      fetch_error: null,
+      fetch_attempts: [],
+      last_update_iso: null,
+      records_count: 0,
+      current_selected_count: 0,
+      current_match_confidence: { high: 0, medium: 0, unknown: 0 },
+      current_status_counts: {},
+      current_match_reasons: { train_number: 0, route_code: 0, none: 0 },
+      current_train_number_availability: { with_train_number: 0, without_train_number: 0 },
+      static_candidate_minutes: 0,
+      static_annotated_minutes: 0,
+      endpoint_override: null,
+      endpoint_candidates: []
+    };
+
+    function normalizeText(value) {
+      return (value || "")
+        .toString()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .trim();
+    }
+
+    function parseHhmm(value) {
+      if (!value) return null;
+      const text = String(value).trim();
+      const match = text.match(/\b([0-2]?\d:[0-5]\d)\b/);
+      return match ? match[1] : null;
+    }
+
+    function hhmmToMinutes(value) {
+      const hhmm = parseHhmm(value);
+      if (!hhmm) return null;
+      const parts = hhmm.split(":");
+      return (parseInt(parts[0], 10) * 60) + parseInt(parts[1], 10);
+    }
+
+    function parseTrainNumberFromText(value) {
+      if (!value) return null;
+      const text = String(value);
+      const match = text.match(/\b([a-z]{1,6})\s*([0-9]{1,6})\b/i);
+      if (!match) return null;
+      return Number(match[2]);
+    }
+
+    function parseTrainCategoryFromText(value) {
+      if (!value) return null;
+      const text = String(value);
+      const match = text.match(/\b([a-z]{1,6})\s*([0-9]{1,6})\b/i);
+      if (!match) return null;
+      return match[1];
+    }
+
+    function normalizeTrainCategory(value) {
+      if (!value) return null;
+      const text = String(value);
+      const match = text.match(/[a-z]{1,6}/i);
+      if (!match) return null;
+      return match[0].toLowerCase();
+    }
+
+    function currentDayKey(now) {
+      const day = now.getDay();
+      if (day >= 1 && day <= 5) return "workdays";
+      if (day === 6) return "saturday";
+      return "sunday";
+    }
+
+    function isRouteCodeToken(token) {
+      if (!/^[a-z0-9]{2,8}$/.test(token)) return false;
+      return /[a-z]/.test(token) && /[0-9]/.test(token);
+    }
+
+    function extractRouteCodes(value) {
+      const tokens = normalizeText(value).split(/[^a-z0-9]+/).filter(Boolean);
+      const codes = tokens.filter((token) => isRouteCodeToken(token));
+      return Array.from(new Set(codes));
+    }
+
+    function shareRouteCode(leftCodes, rightCodes) {
+      if (!leftCodes.length || !rightCodes.length) return false;
+      const rightSet = new Set(rightCodes);
+      return leftCodes.some((code) => rightSet.has(code));
+    }
+
+    function normalizeDelayRecord(record) {
+      const status = record && record.status ? String(record.status) : "unknown";
+      const delayMinutes = (record && Number.isFinite(Number(record.delay_minutes)))
+        ? Number(record.delay_minutes)
+        : null;
+      const trainNumber = (record && Number.isFinite(Number(record.train_number)))
+        ? Number(record.train_number)
+        : null;
+      const trainCategory = normalizeTrainCategory(
+        (record && record.train_category) || parseTrainCategoryFromText(record ? record.train : "")
+      );
+      const routeCodes = extractRouteCodes(record ? (record.route_text || record.route || "") : "");
+      const scheduledMinutes = hhmmToMinutes(record ? (record.scheduled_time_hhmm || record.scheduled_actual_time || "") : "");
+      return {
+        raw: record,
+        status,
+        delayMinutes,
+        trainNumber,
+        trainCategory,
+        routeCodes,
+        scheduledMinutes,
+      };
+    }
+
+    function departureMinutes(departure) {
+      if (!departure) return null;
+      return hhmmToMinutes(departure.departure_time || "");
+    }
+
+    function matchDeparture(departure, delayRecords) {
+      const depMinutes = departureMinutes(departure);
+      if (depMinutes == null) {
+        return { status: "unknown", confidence: "none", match_reason: "none", record: null };
+      }
+
+      const depTrainNumber = Number.isFinite(Number(departure.train_number))
+        ? Number(departure.train_number)
+        : parseTrainNumberFromText(departure.route_short_name || "");
+      const depTrainCategory = normalizeTrainCategory(
+        departure.train_category || parseTrainCategoryFromText(departure.route_short_name || "")
+      );
+
+      let strictCandidates = [];
+      if (depTrainNumber != null) {
+        strictCandidates = delayRecords.filter((record) => {
+          if (record.trainNumber == null) return false;
+          if (record.trainNumber !== depTrainNumber) return false;
+          if (depTrainCategory && record.trainCategory && record.trainCategory !== depTrainCategory) return false;
+          return true;
+        });
+      }
+
+      if (strictCandidates.length === 1) {
+        return { status: strictCandidates[0].status, confidence: "high", match_reason: "train_number", record: strictCandidates[0] };
+      }
+      if (strictCandidates.length > 1) {
+        const timeFilteredStrictCandidates = strictCandidates.filter((record) => {
+          if (record.scheduledMinutes == null) return false;
+          return Math.abs(record.scheduledMinutes - depMinutes) <= 3;
+        });
+        if (timeFilteredStrictCandidates.length === 1) {
+          return {
+            status: timeFilteredStrictCandidates[0].status,
+            confidence: "high",
+            match_reason: "train_number",
+            record: timeFilteredStrictCandidates[0],
+          };
+        }
+        return { status: "unknown", confidence: "none", match_reason: "none", record: null };
+      }
+
+      const depRouteCodes = extractRouteCodes(departure.route_short_name || "");
+      if (!depRouteCodes.length) {
+        return { status: "unknown", confidence: "none", match_reason: "none", record: null };
+      }
+
+      const routeCodeCandidates = delayRecords.filter((record) => {
+        if (record.scheduledMinutes == null) return false;
+        if (Math.abs(record.scheduledMinutes - depMinutes) > 3) return false;
+        if (!record.routeCodes || !record.routeCodes.length) return false;
+        return shareRouteCode(depRouteCodes, record.routeCodes);
+      });
+
+      if (routeCodeCandidates.length === 1) {
+        return { status: routeCodeCandidates[0].status, confidence: "medium", match_reason: "route_code", record: routeCodeCandidates[0] };
+      }
+      if (routeCodeCandidates.length > 1) {
+        return { status: "unknown", confidence: "none", match_reason: "none", record: null };
+      }
+
+      return { status: "unknown", confidence: "none", match_reason: "none", record: null };
+    }
+
+    function statusClass(status) {
+      return `status-${status || "unknown"}`;
+    }
+
+    function statusLabel(match) {
+      const status = match.status || "unknown";
+      const delayMinutes = match.record ? match.record.delayMinutes : null;
+      if (status === "on_time") return "vcas";
+      if (status === "delayed") {
+        return delayMinutes == null ? "zpozdeni" : `+${delayMinutes}`;
+      }
+      if (status === "canceled") return "zrusen";
+      if (status === "diverted") return "odklon";
+      if (status === "disruption") return "vyluka";
+      return "nezname";
+    }
+
+    function countsToText(counts) {
+      const keys = Object.keys(counts || {}).sort();
+      if (!keys.length) return "none";
+      return keys.map((key) => `${key}:${counts[key]}`).join(", ");
+    }
+
+    function getUrlEndpointOverride() {
+      try {
+        const params = new URLSearchParams(window.location.search || "");
+        const value = (params.get("delays_endpoint") || "").trim();
+        return value || null;
+      } catch (_error) {
+        return null;
+      }
+    }
+
+    function getStoredEndpointOverride() {
+      try {
+        const value = (window.localStorage.getItem(ENDPOINT_OVERRIDE_KEY) || "").trim();
+        return value || null;
+      } catch (_error) {
+        return null;
+      }
+    }
+
+    function setStoredEndpointOverride(value) {
+      try {
+        const text = (value || "").trim();
+        if (!text) {
+          window.localStorage.removeItem(ENDPOINT_OVERRIDE_KEY);
+        } else {
+          window.localStorage.setItem(ENDPOINT_OVERRIDE_KEY, text);
+        }
+      } catch (_error) {
+        // ignore localStorage errors
+      }
+    }
+
+    function getActiveEndpointOverride() {
+      return getUrlEndpointOverride() || getStoredEndpointOverride();
+    }
+
+    function highlightCurrentHour(dayKey, currentHour) {
+      const rows = document.querySelectorAll(`.${dayKey} tbody tr`);
+      rows.forEach((row) => {
+        row.classList.remove("current-hour");
+        const hourCell = row.querySelector("td:first-child");
+        if (hourCell && parseInt(hourCell.textContent, 10) === currentHour) {
+          row.classList.add("current-hour");
+        }
+      });
+    }
+
+    function renderCurrentDepartures(dayKey) {
+      const tableBody = document.getElementById("current-departures-body");
+      const label = document.getElementById("current-day-label");
+      if (!tableBody || !label) {
+        return {
+          selectedCount: 0,
+          confidenceCounts: { high: 0, medium: 0, unknown: 0 },
+          statusCounts: {},
+          reasonCounts: { train_number: 0, route_code: 0, none: 0 },
+          trainNumberAvailability: { with_train_number: 0, without_train_number: 0 },
+        };
+      }
+
+      label.textContent = `Aktivni den: ${DAY_LABELS[dayKey] || dayKey}`;
+
+      const allDepartures = (timetableDepartures && timetableDepartures[dayKey]) || [];
+      const now = new Date();
+      const nowMinutes = now.getHours() * 60 + now.getMinutes();
+      const futureDepartures = allDepartures
+        .slice()
+        .sort((a, b) => departureMinutes(a) - departureMinutes(b))
+        .filter((departure) => {
+          const depMinutes = departureMinutes(departure);
+          return depMinutes != null && depMinutes >= (nowMinutes - 5);
+        });
+
+      const selected = (futureDepartures.length ? futureDepartures : allDepartures.slice(0))
+        .slice(0, 10);
+
+      if (!selected.length) {
+        tableBody.innerHTML = '<tr><td colspan="4">Pro tento den nejsou dostupne odjezdy.</td></tr>';
+        return {
+          selectedCount: 0,
+          confidenceCounts: { high: 0, medium: 0, unknown: 0 },
+          statusCounts: {},
+          reasonCounts: { train_number: 0, route_code: 0, none: 0 },
+          trainNumberAvailability: { with_train_number: 0, without_train_number: 0 },
+        };
+      }
+
+      const confidenceCounts = { high: 0, medium: 0, unknown: 0 };
+      const statusCounts = {};
+      const reasonCounts = { train_number: 0, route_code: 0, none: 0 };
+      const trainNumberAvailability = { with_train_number: 0, without_train_number: 0 };
+
+      const rows = selected.map((departure) => {
+        const match = matchDeparture(departure, latestDelayRecords);
+        if (match.confidence === "high") confidenceCounts.high += 1;
+        else if (match.confidence === "medium") confidenceCounts.medium += 1;
+        else confidenceCounts.unknown += 1;
+
+        const matchStatus = match.status || "unknown";
+        statusCounts[matchStatus] = (statusCounts[matchStatus] || 0) + 1;
+        const reason = match.match_reason || "none";
+        reasonCounts[reason] = (reasonCounts[reason] || 0) + 1;
+        const departureTrainNumber = Number.isFinite(Number(departure.train_number))
+          ? Number(departure.train_number)
+          : parseTrainNumberFromText(departure.route_short_name || "");
+        if (departureTrainNumber == null) trainNumberAvailability.without_train_number += 1;
+        else trainNumberAvailability.with_train_number += 1;
+
+        const cls = statusClass(match.status);
+        let confidenceText = "nezname";
+        if (match.confidence === "high") confidenceText = "vysoka shoda";
+        else if (match.confidence === "medium") confidenceText = "stredni shoda";
+        const statusText = statusLabel(match);
+        const timeLabel = parseHhmm(departure.departure_time) || departure.departure_time || "--:--";
+        return `
+          <tr>
+            <td class="time-cell">${timeLabel}</td>
+            <td class="route-cell">${departure.route_short_name || "-"}</td>
+            <td>${departure.route_long_name || "-"}</td>
+            <td class="delay-cell ${cls}" title="${confidenceText}">${statusText}</td>
+          </tr>
+        `;
+      });
+
+      tableBody.innerHTML = rows.join("");
+      return {
+        selectedCount: selected.length,
+        confidenceCounts,
+        statusCounts,
+        reasonCounts,
+        trainNumberAvailability,
+      };
+    }
+
+    function clearMinuteBadges() {
+      document.querySelectorAll(".minute-chip").forEach((chip) => {
+        chip.classList.remove("has-status");
+        const badge = chip.querySelector(".minute-badge");
+        if (badge) {
+          badge.hidden = true;
+          badge.textContent = "";
+          badge.className = "minute-badge";
+        }
+      });
+    }
+
+    function annotateStaticMinutes(activeDayKey) {
+      clearMinuteBadges();
+
+      const minuteMatches = {};
+      const departuresForActiveDay = (timetableDepartures && timetableDepartures[activeDayKey]) || [];
+      departuresForActiveDay.forEach((departure) => {
+        const match = matchDeparture(departure, latestDelayRecords);
+        if (match.confidence !== "high") return;
+        const key = `${activeDayKey}|${departure.hour}|${departure.minute}`;
+        if (!minuteMatches[key]) minuteMatches[key] = [];
+        minuteMatches[key].push(match);
+      });
+
+      let annotatedMinutes = 0;
+      Object.entries(minuteMatches).forEach(([key, matches]) => {
+        const statuses = Array.from(new Set(matches.map((match) => match.status || "unknown")));
+        if (statuses.length !== 1) return;
+        const status = statuses[0];
+        if (status === "unknown") return;
+
+        let label = statusLabel(matches[0]);
+        if (status === "delayed") {
+          const values = Array.from(new Set(matches.map((match) => match.record ? match.record.delayMinutes : null)));
+          if (values.length !== 1 || values[0] == null) {
+            label = "zpozdeni";
+          }
+        }
+
+        const parts = key.split("|");
+        const dayKey = parts[0];
+        const hour = parts[1];
+        const minute = parts[2];
+        const chips = document.querySelectorAll(`.minute-chip[data-day="${dayKey}"][data-hour="${hour}"][data-minute="${minute}"]`);
+        chips.forEach((chip) => {
+          const badge = chip.querySelector(".minute-badge");
+          if (!badge) return;
+          chip.classList.add("has-status");
+          badge.hidden = false;
+          badge.textContent = label;
+          badge.classList.add(statusClass(status));
+          annotatedMinutes += 1;
+        });
+      });
+
+      return {
+        candidateMinutes: Object.keys(minuteMatches).length,
+        annotatedMinutes,
+      };
+    }
+
+    function delayEndpointCandidates() {
+      const candidates = [];
+      const endpointOverride = getActiveEndpointOverride();
+      if (endpointOverride) {
+        candidates.push(endpointOverride);
+      }
+      if (window.DELAYS_ENDPOINT) {
+        candidates.push(String(window.DELAYS_ENDPOINT));
+      }
+      candidates.push("/train_delays");
+      if (window.location && window.location.origin && window.location.origin !== "null") {
+        candidates.push(`${window.location.origin}/train_delays`);
+      }
+      if (window.location && window.location.protocol === "file:") {
+        candidates.push("http://127.0.0.1:5000/train_delays");
+        candidates.push("http://localhost:5000/train_delays");
+      }
+      debugState.endpoint_override = endpointOverride;
+      debugState.endpoint_candidates = Array.from(new Set(candidates));
+      return debugState.endpoint_candidates;
+    }
+
+    async function refreshDelays() {
+      const endpoints = delayEndpointCandidates();
+      debugState.fetch_attempts = [];
+      for (const endpoint of endpoints) {
+        try {
+          const response = await fetch(endpoint, { cache: "no-store" });
+          debugState.fetch_attempts.push(`${endpoint} -> HTTP ${response.status}`);
+          if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+          }
+          const payload = await response.json();
+          latestDelayRecords = Object.values(payload || {}).map((record) => normalizeDelayRecord(record));
+
+          debugState.fetch_ok = true;
+          debugState.fetch_endpoint = endpoint;
+          debugState.fetch_http_status = response.status;
+          debugState.fetch_error = null;
+          debugState.records_count = latestDelayRecords.length;
+          debugState.last_update_iso = new Date().toISOString();
+          return;
+        } catch (error) {
+          debugState.fetch_ok = false;
+          debugState.fetch_endpoint = endpoint;
+          debugState.fetch_http_status = null;
+          debugState.fetch_error = String(error && error.message ? error.message : error);
+        }
+      }
+      debugState.last_update_iso = new Date().toISOString();
+      console.warn("Failed to refresh train delays:", debugState.fetch_error);
+    }
+
+    async function refreshView() {
+      const now = new Date();
+      const dayKey = currentDayKey(now);
+      highlightCurrentHour(dayKey, now.getHours());
+      await refreshDelays();
+      const currentStats = renderCurrentDepartures(dayKey);
+      const staticStats = annotateStaticMinutes(dayKey);
+      debugState.current_selected_count = currentStats.selectedCount;
+      debugState.current_match_confidence = currentStats.confidenceCounts;
+      debugState.current_status_counts = currentStats.statusCounts;
+      debugState.current_match_reasons = currentStats.reasonCounts;
+      debugState.current_train_number_availability = currentStats.trainNumberAvailability;
+      debugState.static_candidate_minutes = staticStats.candidateMinutes;
+      debugState.static_annotated_minutes = staticStats.annotatedMinutes;
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      refreshView();
+      window.setInterval(refreshView, 60 * 1000);
+    });
+  </script>
+</head>
+<body>
+  <div class="stack">
+    <h1>Hlavní nádraží - Doubravka</h1>
+
+  <div class="schedule-container">
+    <div class="schedule-section workdays">
+      <div class="day-heading">PRACOVNÍ DNY</div>
+      <table>
+        <thead><tr><th>Hodina</th><th>Minuty</th></tr></thead>
+        <tbody>
+        
+          <tr><td>0</td><td class="minutes-cell"><span class="minute-chip" data-day="workdays" data-hour="0" data-minute="53">53<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>5</td><td class="minutes-cell"><span class="minute-chip" data-day="workdays" data-hour="5" data-minute="00">00<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="workdays" data-hour="5" data-minute="24">24<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="workdays" data-hour="5" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>6</td><td class="minutes-cell"><span class="minute-chip" data-day="workdays" data-hour="6" data-minute="03">03<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="workdays" data-hour="6" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>7</td><td class="minutes-cell"><span class="minute-chip" data-day="workdays" data-hour="7" data-minute="03">03<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="workdays" data-hour="7" data-minute="11">11<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="workdays" data-hour="7" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>8</td><td class="minutes-cell"><span class="minute-chip" data-day="workdays" data-hour="8" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>9</td><td class="minutes-cell"><span class="minute-chip" data-day="workdays" data-hour="9" data-minute="03">03<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="workdays" data-hour="9" data-minute="21">21<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="workdays" data-hour="9" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>10</td><td class="minutes-cell"><span class="minute-chip" data-day="workdays" data-hour="10" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>11</td><td class="minutes-cell"><span class="minute-chip" data-day="workdays" data-hour="11" data-minute="09">09<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="workdays" data-hour="11" data-minute="21">21<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="workdays" data-hour="11" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>12</td><td class="minutes-cell"><span class="minute-chip" data-day="workdays" data-hour="12" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>13</td><td class="minutes-cell"><span class="minute-chip" data-day="workdays" data-hour="13" data-minute="03">03<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="workdays" data-hour="13" data-minute="08">08<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="workdays" data-hour="13" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>14</td><td class="minutes-cell"><span class="minute-chip" data-day="workdays" data-hour="14" data-minute="03">03<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="workdays" data-hour="14" data-minute="11">11<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="workdays" data-hour="14" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>15</td><td class="minutes-cell"><span class="minute-chip" data-day="workdays" data-hour="15" data-minute="03">03<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="workdays" data-hour="15" data-minute="08">08<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="workdays" data-hour="15" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>16</td><td class="minutes-cell"><span class="minute-chip" data-day="workdays" data-hour="16" data-minute="03">03<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="workdays" data-hour="16" data-minute="11">11<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="workdays" data-hour="16" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>17</td><td class="minutes-cell"><span class="minute-chip" data-day="workdays" data-hour="17" data-minute="03">03<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="workdays" data-hour="17" data-minute="09">09<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="workdays" data-hour="17" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>18</td><td class="minutes-cell"><span class="minute-chip" data-day="workdays" data-hour="18" data-minute="03">03<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="workdays" data-hour="18" data-minute="15">15<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="workdays" data-hour="18" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>19</td><td class="minutes-cell"><span class="minute-chip" data-day="workdays" data-hour="19" data-minute="09">09<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="workdays" data-hour="19" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>20</td><td class="minutes-cell"><span class="minute-chip" data-day="workdays" data-hour="20" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>21</td><td class="minutes-cell"><span class="minute-chip" data-day="workdays" data-hour="21" data-minute="14">14<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>22</td><td class="minutes-cell"><span class="minute-chip" data-day="workdays" data-hour="22" data-minute="16">16<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="workdays" data-hour="22" data-minute="47">47<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="workdays" data-hour="22" data-minute="57">57<span class="minute-badge" hidden></span></span></td></tr>
+        
+        </tbody>
+      </table>
+    </div>
+
+    <div class="schedule-section saturday">
+      <div class="day-heading">SOBOTA</div>
+      <table>
+        <thead><tr><th>Hodina</th><th>Minuty</th></tr></thead>
+        <tbody>
+        
+          <tr><td>0</td><td class="minutes-cell"><span class="minute-chip" data-day="saturday" data-hour="0" data-minute="53">53<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>5</td><td class="minutes-cell"><span class="minute-chip" data-day="saturday" data-hour="5" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>6</td><td class="minutes-cell"><span class="minute-chip" data-day="saturday" data-hour="6" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>7</td><td class="minutes-cell"><span class="minute-chip" data-day="saturday" data-hour="7" data-minute="03">03<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="saturday" data-hour="7" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>8</td><td class="minutes-cell"><span class="minute-chip" data-day="saturday" data-hour="8" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>9</td><td class="minutes-cell"><span class="minute-chip" data-day="saturday" data-hour="9" data-minute="03">03<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="saturday" data-hour="9" data-minute="21">21<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="saturday" data-hour="9" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>10</td><td class="minutes-cell"><span class="minute-chip" data-day="saturday" data-hour="10" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>11</td><td class="minutes-cell"><span class="minute-chip" data-day="saturday" data-hour="11" data-minute="09">09<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="saturday" data-hour="11" data-minute="21">21<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="saturday" data-hour="11" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>12</td><td class="minutes-cell"><span class="minute-chip" data-day="saturday" data-hour="12" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>13</td><td class="minutes-cell"><span class="minute-chip" data-day="saturday" data-hour="13" data-minute="09">09<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="saturday" data-hour="13" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>14</td><td class="minutes-cell"><span class="minute-chip" data-day="saturday" data-hour="14" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>15</td><td class="minutes-cell"><span class="minute-chip" data-day="saturday" data-hour="15" data-minute="03">03<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="saturday" data-hour="15" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>16</td><td class="minutes-cell"><span class="minute-chip" data-day="saturday" data-hour="16" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>17</td><td class="minutes-cell"><span class="minute-chip" data-day="saturday" data-hour="17" data-minute="09">09<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="saturday" data-hour="17" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>18</td><td class="minutes-cell"><span class="minute-chip" data-day="saturday" data-hour="18" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>19</td><td class="minutes-cell"><span class="minute-chip" data-day="saturday" data-hour="19" data-minute="09">09<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="saturday" data-hour="19" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>20</td><td class="minutes-cell"><span class="minute-chip" data-day="saturday" data-hour="20" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>21</td><td class="minutes-cell"><span class="minute-chip" data-day="saturday" data-hour="21" data-minute="14">14<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>22</td><td class="minutes-cell"><span class="minute-chip" data-day="saturday" data-hour="22" data-minute="16">16<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="saturday" data-hour="22" data-minute="47">47<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="saturday" data-hour="22" data-minute="57">57<span class="minute-badge" hidden></span></span></td></tr>
+        
+        </tbody>
+      </table>
+    </div>
+
+    <div class="schedule-section sunday">
+      <div class="day-heading">NEDĚLE</div>
+      <table>
+        <thead><tr><th>Hodina</th><th>Minuty</th></tr></thead>
+        <tbody>
+        
+          <tr><td>0</td><td class="minutes-cell"><span class="minute-chip" data-day="sunday" data-hour="0" data-minute="53">53<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>5</td><td class="minutes-cell"><span class="minute-chip" data-day="sunday" data-hour="5" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>6</td><td class="minutes-cell"><span class="minute-chip" data-day="sunday" data-hour="6" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>7</td><td class="minutes-cell"><span class="minute-chip" data-day="sunday" data-hour="7" data-minute="03">03<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="sunday" data-hour="7" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>8</td><td class="minutes-cell"><span class="minute-chip" data-day="sunday" data-hour="8" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>9</td><td class="minutes-cell"><span class="minute-chip" data-day="sunday" data-hour="9" data-minute="03">03<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="sunday" data-hour="9" data-minute="21">21<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="sunday" data-hour="9" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>10</td><td class="minutes-cell"><span class="minute-chip" data-day="sunday" data-hour="10" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>11</td><td class="minutes-cell"><span class="minute-chip" data-day="sunday" data-hour="11" data-minute="09">09<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="sunday" data-hour="11" data-minute="21">21<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="sunday" data-hour="11" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>12</td><td class="minutes-cell"><span class="minute-chip" data-day="sunday" data-hour="12" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>13</td><td class="minutes-cell"><span class="minute-chip" data-day="sunday" data-hour="13" data-minute="09">09<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="sunday" data-hour="13" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>14</td><td class="minutes-cell"><span class="minute-chip" data-day="sunday" data-hour="14" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>15</td><td class="minutes-cell"><span class="minute-chip" data-day="sunday" data-hour="15" data-minute="03">03<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="sunday" data-hour="15" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>16</td><td class="minutes-cell"><span class="minute-chip" data-day="sunday" data-hour="16" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>17</td><td class="minutes-cell"><span class="minute-chip" data-day="sunday" data-hour="17" data-minute="09">09<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="sunday" data-hour="17" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>18</td><td class="minutes-cell"><span class="minute-chip" data-day="sunday" data-hour="18" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>19</td><td class="minutes-cell"><span class="minute-chip" data-day="sunday" data-hour="19" data-minute="09">09<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="sunday" data-hour="19" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>20</td><td class="minutes-cell"><span class="minute-chip" data-day="sunday" data-hour="20" data-minute="41">41<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>21</td><td class="minutes-cell"><span class="minute-chip" data-day="sunday" data-hour="21" data-minute="14">14<span class="minute-badge" hidden></span></span></td></tr>
+        
+          <tr><td>22</td><td class="minutes-cell"><span class="minute-chip" data-day="sunday" data-hour="22" data-minute="16">16<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="sunday" data-hour="22" data-minute="47">47<span class="minute-badge" hidden></span></span><span class="minute-chip" data-day="sunday" data-hour="22" data-minute="57">57<span class="minute-badge" hidden></span></span></td></tr>
+        
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+    <section class="card">
+      <div class="card-header">Aktualni odjezdy</div>
+      <div class="card-content">
+        <div id="current-day-label"></div>
+        <table id="current-table">
+          <thead>
+            <tr><th>Cas</th><th>Linka</th><th>Smer</th><th>Zpozdeni</th></tr>
+          </thead>
+          <tbody id="current-departures-body">
+            <tr><td colspan="4">Nacitam data...</td></tr>
+          </tbody>
+        </table>
+        <p class="meta-note">Stavy se aktualizuji kazdych 60 sekund. Chybejici zaznam znamena neznamy stav, ne vcasny vlak.</p>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

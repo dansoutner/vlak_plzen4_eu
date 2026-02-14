@@ -1,0 +1,3691 @@
+<?xml version="1.0"?>
+<CZPTTCISMessage xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Identifiers>
+    <PlannedTransportIdentifiers>
+      <ObjectType>PA</ObjectType>
+      <Company>0054</Company>
+      <Core>KT----22434A</Core>
+      <Variant>00</Variant>
+      <TimetableYear>2026</TimetableYear>
+    </PlannedTransportIdentifiers>
+    <PlannedTransportIdentifiers>
+      <ObjectType>TR</ObjectType>
+      <Company>1154</Company>
+      <Core>KASO---15701</Core>
+      <Variant>00</Variant>
+      <TimetableYear>2026</TimetableYear>
+    </PlannedTransportIdentifiers>
+  </Identifiers>
+  <CZPTTCreation>2025-11-07T22:08:33</CZPTTCreation>
+  <CZPTTHeader />
+  <CZPTTInformation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>34194</LocationPrimaryCode>
+        <PrimaryLocationName>Opava východ</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">7</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALD">
+          <Time>15:48:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <TrainActivity>
+        <TrainActivityType>0001</TrainActivityType>
+      </TrainActivity>
+      <TrainActivity>
+        <TrainActivityType>0033</TrainActivityType>
+      </TrainActivity>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+      <NetworkSpecificParameter>
+        <Name>CZPassengerDwellTime</Name>
+        <Value>1</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>34204</LocationPrimaryCode>
+        <PrimaryLocationName>Opava-Komárov</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">1</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>15:52:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>15:52:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>34854</LocationPrimaryCode>
+        <PrimaryLocationName>Štítina</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">1</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>15:54:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>15:54:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>34864</LocationPrimaryCode>
+        <PrimaryLocationName>Mokré Lazce</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>15:55:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>15:55:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>33444</LocationPrimaryCode>
+        <PrimaryLocationName>Lhota u Opavy</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>15:55:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>15:55:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>33424</LocationPrimaryCode>
+        <PrimaryLocationName>Háj ve Slezsku</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>15:58:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>15:58:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <TrainActivity>
+        <TrainActivityType>CZ02</TrainActivityType>
+      </TrainActivity>
+      <TrainActivity>
+        <TrainActivityType>0002</TrainActivityType>
+      </TrainActivity>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+      <NetworkSpecificParameter>
+        <Name>CZPassengerDwellTime</Name>
+        <Value>1</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>33434</LocationPrimaryCode>
+        <PrimaryLocationName>Jilešovice</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>16:02:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>16:02:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>33264</LocationPrimaryCode>
+        <PrimaryLocationName>Děhylov</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>16:05:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>16:06:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <DwellTime>0.5</DwellTime>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <TrainActivity>
+        <TrainActivityType>0002</TrainActivityType>
+      </TrainActivity>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>34444</LocationPrimaryCode>
+        <PrimaryLocationName>Ostrava-Třebovice</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">1</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>16:09:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>16:09:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>34434</LocationPrimaryCode>
+        <PrimaryLocationName>Ostrava-Svinov</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">6</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>16:12:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>16:13:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <DwellTime>1</DwellTime>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <TrainActivity>
+        <TrainActivityType>0001</TrainActivityType>
+      </TrainActivity>
+      <TrainActivity>
+        <TrainActivityType>0033</TrainActivityType>
+      </TrainActivity>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+      <NetworkSpecificParameter>
+        <Name>CZPassengerDwellTime</Name>
+        <Value>1</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>38314</LocationPrimaryCode>
+        <PrimaryLocationName>Polanka nad Odrou výhybna</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>16:16:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>16:16:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>34454</LocationPrimaryCode>
+        <PrimaryLocationName>Polanka nad Odrou</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>16:16:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>16:16:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>33654</LocationPrimaryCode>
+        <PrimaryLocationName>Jistebník</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>16:18:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>16:18:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>34694</LocationPrimaryCode>
+        <PrimaryLocationName>Studénka</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>16:22:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>16:22:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>34693</LocationPrimaryCode>
+        <PrimaryLocationName>Studénka nákl.n.</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">102</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>16:24:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>16:24:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>33494</LocationPrimaryCode>
+        <PrimaryLocationName>Hladké Životice</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>16:27:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>16:27:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>34804</LocationPrimaryCode>
+        <PrimaryLocationName>Suchdol nad Odrou</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>16:30:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>16:30:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>34824</LocationPrimaryCode>
+        <PrimaryLocationName>Jeseník nad Odrou</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>16:32:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>16:32:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>34543</LocationPrimaryCode>
+        <PrimaryLocationName>hr.VUSC 0710/0800 02</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>16:35:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>16:35:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>34544</LocationPrimaryCode>
+        <PrimaryLocationName>Polom</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>16:35:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>16:35:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>34554</LocationPrimaryCode>
+        <PrimaryLocationName>Bělotín</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>16:38:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>16:38:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>37120</LocationPrimaryCode>
+        <PrimaryLocationName>km 214,200 -0,046</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>16:39:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>16:39:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>33722</LocationPrimaryCode>
+        <PrimaryLocationName>Hranice na Moravě</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>16:41:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>16:41:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>33472</LocationPrimaryCode>
+        <PrimaryLocationName>Drahotuše</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>16:43:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>16:43:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>34046</LocationPrimaryCode>
+        <PrimaryLocationName>AHr Slavíč</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>16:44:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>16:44:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>34043</LocationPrimaryCode>
+        <PrimaryLocationName>Odb Jezernice A</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>16:45:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>16:45:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>34045</LocationPrimaryCode>
+        <PrimaryLocationName>Odb Jezernice B</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>16:47:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>16:47:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>34048</LocationPrimaryCode>
+        <PrimaryLocationName>AHr Benátky</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>16:48:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>16:48:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>34042</LocationPrimaryCode>
+        <PrimaryLocationName>Lipník nad Bečvou</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>16:50:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>16:50:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>34642</LocationPrimaryCode>
+        <PrimaryLocationName>Osek nad Bečvou</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>16:53:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>16:53:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>34652</LocationPrimaryCode>
+        <PrimaryLocationName>Prosenice</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>16:55:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>16:55:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>38042</LocationPrimaryCode>
+        <PrimaryLocationName>Dluhonice výhybna</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">6</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>16:59:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>16:59:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>33152</LocationPrimaryCode>
+        <PrimaryLocationName>Rokytnice u Přerova</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>17:00:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>17:00:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>33142</LocationPrimaryCode>
+        <PrimaryLocationName>Brodek u Přerova</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>17:02:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>17:02:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>33482</LocationPrimaryCode>
+        <PrimaryLocationName>Grygov</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>17:05:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>17:05:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>34362</LocationPrimaryCode>
+        <PrimaryLocationName>Olomouc hl. n.</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>17:09:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>17:11:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <DwellTime>2</DwellTime>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <TrainActivity>
+        <TrainActivityType>0001</TrainActivityType>
+      </TrainActivity>
+      <TrainActivity>
+        <TrainActivityType>0033</TrainActivityType>
+      </TrainActivity>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+      <NetworkSpecificParameter>
+        <Name>CZPassengerDwellTime</Name>
+        <Value>1</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>38004</LocationPrimaryCode>
+        <PrimaryLocationName>Olomouc přednádraží</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">202</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>17:13:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>17:13:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>34932</LocationPrimaryCode>
+        <PrimaryLocationName>Štěpánov</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>17:16:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>17:16:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>34912</LocationPrimaryCode>
+        <PrimaryLocationName>Střeň</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>17:18:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>17:18:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>33312</LocationPrimaryCode>
+        <PrimaryLocationName>Červenka</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>17:21:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>17:21:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>34292</LocationPrimaryCode>
+        <PrimaryLocationName>Moravičany</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>17:25:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>17:25:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>34282</LocationPrimaryCode>
+        <PrimaryLocationName>Mohelnice</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>17:26:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>17:26:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>34162</LocationPrimaryCode>
+        <PrimaryLocationName>Lukavice na Moravě</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>17:29:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>17:29:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>35502</LocationPrimaryCode>
+        <PrimaryLocationName>Zábřeh na Moravě</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>17:31:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>17:31:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53993</LocationPrimaryCode>
+        <PrimaryLocationName>Lupěné</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>17:33:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>17:33:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53982</LocationPrimaryCode>
+        <PrimaryLocationName>Hoštejn</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>17:35:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>17:35:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53983</LocationPrimaryCode>
+        <PrimaryLocationName>Hoštejn</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>17:36:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>17:36:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53984</LocationPrimaryCode>
+        <PrimaryLocationName>hr.VUSC 0530/0710 03</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>17:36:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>17:36:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53973</LocationPrimaryCode>
+        <PrimaryLocationName>Tatenice</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>17:38:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>17:38:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53962</LocationPrimaryCode>
+        <PrimaryLocationName>Krasíkov kol. 1a, 2a</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2a</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>17:39:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>17:39:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53963</LocationPrimaryCode>
+        <PrimaryLocationName>Krasíkov</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>17:39:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>17:39:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53972</LocationPrimaryCode>
+        <PrimaryLocationName>Krasíkov</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>17:40:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>17:40:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53953</LocationPrimaryCode>
+        <PrimaryLocationName>Žichlínek</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>17:41:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>17:41:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>54003</LocationPrimaryCode>
+        <PrimaryLocationName>Luková u Rudoltic v Čechách</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>17:42:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>17:42:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53943</LocationPrimaryCode>
+        <PrimaryLocationName>Rudoltice v Čechách</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>17:44:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>17:44:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53933</LocationPrimaryCode>
+        <PrimaryLocationName>Třebovice v Čechách</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>17:48:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>17:48:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53913</LocationPrimaryCode>
+        <PrimaryLocationName>Česká Třebová</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">14</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>17:52:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>17:52:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>58033</LocationPrimaryCode>
+        <PrimaryLocationName>Parník odbočka</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>17:54:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>17:54:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>57187</LocationPrimaryCode>
+        <PrimaryLocationName>km 249,900 -0,030</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>17:55:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>17:55:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53923</LocationPrimaryCode>
+        <PrimaryLocationName>Dlouhá Třebová</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>17:56:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>17:56:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53873</LocationPrimaryCode>
+        <PrimaryLocationName>Ústí nad Orlicí město</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>17:57:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>17:57:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53863</LocationPrimaryCode>
+        <PrimaryLocationName>Ústí nad Orlicí</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>17:58:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>17:58:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53852</LocationPrimaryCode>
+        <PrimaryLocationName>Odb Bezpráví</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>18:01:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>18:01:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53843</LocationPrimaryCode>
+        <PrimaryLocationName>Brandýs nad Orlicí</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2b</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>18:05:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>18:05:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53842</LocationPrimaryCode>
+        <PrimaryLocationName>Brandýs nad Orlicí</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2c</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>18:06:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>18:06:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53813</LocationPrimaryCode>
+        <PrimaryLocationName>Choceň</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>18:08:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>18:08:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53823</LocationPrimaryCode>
+        <PrimaryLocationName>Sruby</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>18:09:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>18:09:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53713</LocationPrimaryCode>
+        <PrimaryLocationName>Dobříkov u Chocně</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>18:10:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>18:10:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53693</LocationPrimaryCode>
+        <PrimaryLocationName>Zámrsk</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>18:11:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>18:11:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53703</LocationPrimaryCode>
+        <PrimaryLocationName>Sedlíšťka</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>18:12:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>18:12:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53683</LocationPrimaryCode>
+        <PrimaryLocationName>Uhersko</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>18:14:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>18:14:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53673</LocationPrimaryCode>
+        <PrimaryLocationName>Moravany</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>18:16:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>18:16:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53653</LocationPrimaryCode>
+        <PrimaryLocationName>Kostěnice</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>18:18:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>18:18:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53663</LocationPrimaryCode>
+        <PrimaryLocationName>Pardubice-Černá za Bory</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>18:21:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>18:21:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53643</LocationPrimaryCode>
+        <PrimaryLocationName>Pardubice-Pardubičky</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>18:23:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>18:23:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53613</LocationPrimaryCode>
+        <PrimaryLocationName>Pardubice hl. n.</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">4</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>18:26:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>18:28:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <DwellTime>2</DwellTime>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <TrainActivity>
+        <TrainActivityType>0001</TrainActivityType>
+      </TrainActivity>
+      <TrainActivity>
+        <TrainActivityType>0033</TrainActivityType>
+      </TrainActivity>
+      <TrainActivity>
+        <TrainActivityType>0029</TrainActivityType>
+      </TrainActivity>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+      <NetworkSpecificParameter>
+        <Name>CZPassengerDwellTime</Name>
+        <Value>1</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53633</LocationPrimaryCode>
+        <PrimaryLocationName>Pardubice-Svítkov</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>18:30:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>18:30:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53623</LocationPrimaryCode>
+        <PrimaryLocationName>Pardubice-Opočínek</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>18:32:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>18:32:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53533</LocationPrimaryCode>
+        <PrimaryLocationName>Valy u Přelouče</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>18:33:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>18:33:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>54513</LocationPrimaryCode>
+        <PrimaryLocationName>Přelouč nákl. n.</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">102</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>18:34:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>18:34:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53513</LocationPrimaryCode>
+        <PrimaryLocationName>Přelouč</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>18:35:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>18:35:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53523</LocationPrimaryCode>
+        <PrimaryLocationName>Lhota pod Přeloučí</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>18:36:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>18:36:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53483</LocationPrimaryCode>
+        <PrimaryLocationName>Řečany n.L.</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>18:38:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>18:38:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53503</LocationPrimaryCode>
+        <PrimaryLocationName>Chvaletice</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>18:39:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>18:39:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53493</LocationPrimaryCode>
+        <PrimaryLocationName>Kojice</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>18:40:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>18:40:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53453</LocationPrimaryCode>
+        <PrimaryLocationName>hr.VUSC 0200/0530 02</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>18:41:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>18:41:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53474</LocationPrimaryCode>
+        <PrimaryLocationName>Týnec nad Labem</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>18:41:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>18:41:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53454</LocationPrimaryCode>
+        <PrimaryLocationName>Záboří n.L.</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>18:42:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>18:42:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53464</LocationPrimaryCode>
+        <PrimaryLocationName>Starý Kolín</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>18:43:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>18:43:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53418</LocationPrimaryCode>
+        <PrimaryLocationName>Kolín vjezd.náv.L</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>18:44:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>18:44:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53484</LocationPrimaryCode>
+        <PrimaryLocationName>Kolín dílny</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>18:45:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>18:45:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>58007</LocationPrimaryCode>
+        <PrimaryLocationName>Kolín seř.n.</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>18:48:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>18:48:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53414</LocationPrimaryCode>
+        <PrimaryLocationName>Kolín</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">102</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>18:49:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>18:49:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53424</LocationPrimaryCode>
+        <PrimaryLocationName>Kolín zastávka</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>18:52:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>18:52:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53176</LocationPrimaryCode>
+        <PrimaryLocationName>Nová Ves u Kolína</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>18:54:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>18:54:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53156</LocationPrimaryCode>
+        <PrimaryLocationName>Velim</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>18:55:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>18:55:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53166</LocationPrimaryCode>
+        <PrimaryLocationName>Cerhenice</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>18:56:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>18:56:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53167</LocationPrimaryCode>
+        <PrimaryLocationName>Odb Cerhenice</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>18:56:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>18:56:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53116</LocationPrimaryCode>
+        <PrimaryLocationName>Pečky</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>18:58:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>18:58:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53126</LocationPrimaryCode>
+        <PrimaryLocationName>Tatce</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>18:59:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>18:59:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53127</LocationPrimaryCode>
+        <PrimaryLocationName>Odb Tatce</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>18:59:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>18:59:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53096</LocationPrimaryCode>
+        <PrimaryLocationName>Poříčany</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>19:01:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>19:01:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53106</LocationPrimaryCode>
+        <PrimaryLocationName>Klučov</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>19:02:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>19:02:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53066</LocationPrimaryCode>
+        <PrimaryLocationName>Český Brod</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>19:04:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>19:04:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53086</LocationPrimaryCode>
+        <PrimaryLocationName>Rostoklaty</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>19:07:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>19:07:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53076</LocationPrimaryCode>
+        <PrimaryLocationName>Tuklaty</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>19:08:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>19:08:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53046</LocationPrimaryCode>
+        <PrimaryLocationName>Úvaly</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>19:10:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>19:10:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53047</LocationPrimaryCode>
+        <PrimaryLocationName>hr.VUSC 0100/0200 04</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>19:10:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>19:10:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53056</LocationPrimaryCode>
+        <PrimaryLocationName>Praha-Klánovice</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>19:12:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>19:12:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>58066</LocationPrimaryCode>
+        <PrimaryLocationName>Blatov odbočka</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2a</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>19:13:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>19:13:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53006</LocationPrimaryCode>
+        <PrimaryLocationName>Praha-Běchovice střed</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2b</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>19:14:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>19:14:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53016</LocationPrimaryCode>
+        <PrimaryLocationName>Praha-Běchovice</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">2</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>19:16:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>19:16:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>53036</LocationPrimaryCode>
+        <PrimaryLocationName>Praha-Dolní Počernice</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>19:18:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>19:18:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>57366</LocationPrimaryCode>
+        <PrimaryLocationName>Praha-Kyje</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>19:19:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>19:19:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>57176</LocationPrimaryCode>
+        <PrimaryLocationName>Praha-Libeň</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">100</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>19:21:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>19:21:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>57075</LocationPrimaryCode>
+        <PrimaryLocationName>Pha hl.n.L601b,L602b</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>19:24:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>19:24:30.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C1</TrafficType>
+      <CommercialTrafficType>94</CommercialTrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>57076</LocationPrimaryCode>
+        <PrimaryLocationName>Praha hl. n.</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">1</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>19:28:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>19:43:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <DwellTime>15</DwellTime>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C4</TrafficType>
+      <TrainActivity>
+        <TrainActivityType>0001</TrainActivityType>
+      </TrainActivity>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+      <NetworkSpecificParameter>
+        <Name>CZPassengerDwellTime</Name>
+        <Value>1</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>57073</LocationPrimaryCode>
+        <PrimaryLocationName>Pha hl.n. Lc105-102</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>19:45:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>19:45:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C4</TrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>57276</LocationPrimaryCode>
+        <PrimaryLocationName>Praha-Vršovice</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">15</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>19:47:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>19:48:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <DwellTime>1</DwellTime>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C4</TrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>57261</LocationPrimaryCode>
+        <PrimaryLocationName>Praha-Eden</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">205</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>19:51:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>19:51:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C4</TrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>50031</LocationPrimaryCode>
+        <PrimaryLocationName>hi Praha jih odjezd</PrimaryLocationName>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>19:52:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+        <Timing TimingQualifierCode="ALD">
+          <Time>19:52:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C4</TrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <CZPTTLocation>
+      <Location>
+        <CountryCodeISO>CZ</CountryCodeISO>
+        <LocationPrimaryCode>58376</LocationPrimaryCode>
+        <PrimaryLocationName>Praha Jih</PrimaryLocationName>
+        <LocationSubsidiaryIdentification>
+          <LocationSubsidiaryCode LocationSubsidiaryTypeCode="1">511</LocationSubsidiaryCode>
+          <AllocationCompany>0054</AllocationCompany>
+        </LocationSubsidiaryIdentification>
+      </Location>
+      <TimingAtLocation>
+        <Timing TimingQualifierCode="ALA">
+          <Time>19:54:00.0000000+01:00</Time>
+          <Offset>0</Offset>
+        </Timing>
+      </TimingAtLocation>
+      <ResponsibleRU>1154</ResponsibleRU>
+      <ResponsibleIM>54</ResponsibleIM>
+      <TrainType>1</TrainType>
+      <TrafficType>C4</TrafficType>
+      <OperationalTrainNumber>502</OperationalTrainNumber>
+      <NetworkSpecificParameter>
+        <Name>CZAlternativeTransport</Name>
+        <Value>0</Value>
+      </NetworkSpecificParameter>
+    </CZPTTLocation>
+    <PlannedCalendar>
+      <BitmapDays>10000010000001000000100000010000001000000100000010000001000000100000010000001000000100000001000001000000100000010000001000000100000010000001000000100000010000001000000100000001000001000000100000010000001001000100000010000001010000100000010000001</BitmapDays>
+      <ValidityPeriod>
+        <StartDateTime>2026-04-06T00:00:00</StartDateTime>
+        <EndDateTime>2026-12-06T00:00:00</EndDateTime>
+      </ValidityPeriod>
+    </PlannedCalendar>
+  </CZPTTInformation>
+  <NetworkSpecificParameter>
+    <Name>CZTrainName</Name>
+    <Value>Opavan</Value>
+  </NetworkSpecificParameter>
+  <NetworkSpecificParameter>
+    <Name>CZIPTS</Name>
+    <Value>80|CZ34194||CZ34434||</Value>
+  </NetworkSpecificParameter>
+  <NetworkSpecificParameter>
+    <Name>CZCentralPTTNote</Name>
+    <Value>19|CZ34194||CZ34434||0|</Value>
+  </NetworkSpecificParameter>
+  <NetworkSpecificParameter>
+    <Name>CZCentralPTTNote</Name>
+    <Value>44|CZ34194||CZ34434||0|</Value>
+  </NetworkSpecificParameter>
+  <NetworkSpecificParameter>
+    <Name>CZCentralPTTNote</Name>
+    <Value>20|CZ34434||CZ57076||0|</Value>
+  </NetworkSpecificParameter>
+  <NetworkSpecificParameter>
+    <Name>CZCentralPTTNote</Name>
+    <Value>29|CZ34194||CZ58376||0|</Value>
+  </NetworkSpecificParameter>
+  <NetworkSpecificParameter>
+    <Name>CZCentralPTTNote</Name>
+    <Value>30|CZ34194||CZ58376||0|</Value>
+  </NetworkSpecificParameter>
+  <NetworkSpecificParameter>
+    <Name>CZCentralPTTNote</Name>
+    <Value>40|CZ34194||CZ58376||0|</Value>
+  </NetworkSpecificParameter>
+  <NetworkSpecificParameter>
+    <Name>CZCentralPTTNote</Name>
+    <Value>25|CZ34194||CZ58376||0|</Value>
+  </NetworkSpecificParameter>
+  <NetworkSpecificParameter>
+    <Name>CZCentralPTTNote</Name>
+    <Value>34|CZ34194||CZ58376||0|</Value>
+  </NetworkSpecificParameter>
+  <NetworkSpecificParameter>
+    <Name>CZCentralPTTNote</Name>
+    <Value>39|CZ34194||CZ58376||0|</Value>
+  </NetworkSpecificParameter>
+  <NetworkSpecificParameter>
+    <Name>CZCentralPTTNote</Name>
+    <Value>41|CZ34194||CZ58376||0|</Value>
+  </NetworkSpecificParameter>
+  <NetworkSpecificParameter>
+    <Name>CZCentralPTTNote</Name>
+    <Value>42|CZ34194||CZ58376||0|</Value>
+  </NetworkSpecificParameter>
+  <NetworkSpecificParameter>
+    <Name>CZCentralPTTNote</Name>
+    <Value>33|CZ34194||CZ58376||0|</Value>
+  </NetworkSpecificParameter>
+</CZPTTCISMessage>

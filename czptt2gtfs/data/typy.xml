@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <soap:Body>
+    <SeznamTypuSpolecnostiResponse xmlns="http://provoz.szdc.cz/kadr">
+      <SeznamTypuSpolecnostiResult ID="122812" Nazev="V8504" Popis="ISOŘ KADR (4.0.13), 11. 3. 2020 22:31:23">
+        <TypSpolecnosti ID="8" Nazev="Správce registru vozidel" Zkratka="SRV" PlatnostOd="2008-01-01T01:00:00" PlatnostDo="2100-01-01T12:00:00"/>
+        <TypSpolecnosti ID="9" Nazev="Vlastník vozidel" Zkratka="VLV" PlatnostOd="2008-01-01T01:00:00" PlatnostDo="2100-01-01T12:00:00"/>
+        <TypSpolecnosti ID="11" Nazev="Výrobce vozidla" Zkratka="VYV" PlatnostOd="2008-01-01T01:00:00" PlatnostDo="2100-01-01T12:00:00"/>
+        <TypSpolecnosti ID="12" Nazev="Společnost provádějící údržbu vozidla" Zkratka="UV" PlatnostOd="2008-01-01T01:00:00" PlatnostDo="2100-01-01T12:00:00"/>
+        <TypSpolecnosti ID="1" Nazev="Dopravce" Zkratka="DOP" PlatnostOd="2007-09-10T08:00:00" PlatnostDo="2100-01-01T12:00:00"/>
+        <TypSpolecnosti ID="2" Nazev="Manažer infrastruktury" Zkratka="MI" PlatnostOd="2007-09-10T08:00:00" PlatnostDo="2100-01-01T12:00:00"/>
+        <TypSpolecnosti ID="3" Nazev="Provozovatel dráhy" Zkratka="PD" PlatnostOd="2007-09-10T08:00:00" PlatnostDo="2100-01-01T12:00:00"/>
+        <TypSpolecnosti ID="4" Nazev="Držitel vozidla" Zkratka="DV" PlatnostOd="2007-09-10T08:00:00" PlatnostDo="2100-01-01T12:00:00"/>
+        <TypSpolecnosti ID="5" Nazev="Manažer vozidlového parku" Zkratka="MVP" PlatnostOd="2007-09-10T08:00:00" PlatnostDo="2100-01-01T12:00:00"/>
+        <TypSpolecnosti ID="6" Nazev="Operátor kombinované dopravy" Zkratka="OPKD" PlatnostOd="2007-09-10T08:00:00" PlatnostDo="2100-01-01T12:00:00"/>
+        <TypSpolecnosti ID="7" Nazev="Ostatní" Zkratka="O" PlatnostOd="2007-09-10T08:00:00" PlatnostDo="2100-01-01T12:00:00"/>
+        <TypSpolecnosti ID="10" Nazev="Národní bezpečnostní autorita" Zkratka="NBA" PlatnostOd="2008-01-01T01:00:00" PlatnostDo="2100-01-01T12:00:00"/>
+      </SeznamTypuSpolecnostiResult>
+    </SeznamTypuSpolecnostiResponse>
+  </soap:Body>
+</soap:Envelope>

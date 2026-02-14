@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope"
+>
+    <soap:Body>
+        <SeznamKomercniDruhVlakuResponse xmlns="http://provoz.szdc.cz/kadr">
+            <SeznamKomercniDruhVlakuResult ID="250792" Nazev="V8518" Popis="IS KADR (5.4.1.1), 18.02.2025 19:56:12">
+                <KomercniDruhVlaku Kod="EC" KodTAF="50"/>
+                <KomercniDruhVlaku Kod="IC" KodTAF="63"/>
+                <KomercniDruhVlaku Kod="Ex" KodTAF="69"/>
+                <KomercniDruhVlaku Kod="EN" KodTAF="70"/>
+                <KomercniDruhVlaku Kod="Os" KodTAF="84"/>
+                <KomercniDruhVlaku Kod="SC" KodTAF="94"/>
+                <KomercniDruhVlaku Kod="Sp" KodTAF="122"/>
+                <KomercniDruhVlaku Kod="R" KodTAF="157"/>
+                <KomercniDruhVlaku Kod="rj" KodTAF="209"/>
+                <KomercniDruhVlaku Kod="Rx" KodTAF="9000"/>
+                <KomercniDruhVlaku Kod="TLX" KodTAF="9001"/>
+                <KomercniDruhVlaku Kod="TL" KodTAF="9002"/>
+                <KomercniDruhVlaku Kod="LE" KodTAF="9003"/>
+                <KomercniDruhVlaku Kod="RJ" KodTAF="9004"/>
+                <KomercniDruhVlaku Kod="AEx" KodTAF="9005"/>
+                <KomercniDruhVlaku Kod="NJ" KodTAF="9006"/>
+                <KomercniDruhVlaku Kod="LET" KodTAF="9007"/>
+                <KomercniDruhVlaku Kod="ES" KodTAF="9010"/>
+            </SeznamKomercniDruhVlakuResult>
+        </SeznamKomercniDruhVlakuResponse>
+    </soap:Body>
+</soap:Envelope>
