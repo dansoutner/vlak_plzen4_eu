@@ -90,33 +90,29 @@ Test coverage includes:
 - additive normalized fields
 - strict train-number and route-code fallback matching, ambiguous cases, and missing-record behavior
 
-## Enrich merged GTFS with official train numbers
+## Download and convert official rail GTFS
 
-Use official CZ rail XML data (base + updates), convert with local `czptt2gtfs`, and write a new enriched feed.
+Use official CZ rail XML data (base + updates), convert with local `czptt2gtfs`, and write GTFS output.
 
 ```bash
-./venv/bin/python scripts/enrich_merged_with_official_train_numbers.py \
+./venv/bin/python scripts/download_and_convert_official_gtfs.py \
   --year 2026 \
-  --merged-dir /Users/dan/Data/STAN/jizdni_rady/jizdni-rady-czech-republic/data/merged \
   --work-dir /Users/dan/Data/STAN/jizdni_rady/data/official_rail_work \
-  --output-dir /Users/dan/Data/STAN/jizdni_rady/data/merged_enriched_train_numbers \
+  --output-dir /Users/dan/Data/STAN/jizdni_rady/data/official_rail_work/official_gtfs/2026 \
   --updates-mode all
 ```
 
 Key flags:
 
 - `--skip-download`: reuse downloaded archives / extracted XML.
-- `--skip-convert`: reuse already converted official GTFS in `<work-dir>/official_gtfs/<year>`.
+- `--skip-convert`: skip conversion and validate existing GTFS output.
 - `--updates-mode all|none`: include all monthly updates or only base archive.
 
 Output:
 
-- enriched feed in `--output-dir` (same as merged feed, with `trips.txt` containing `trip_short_name` for matched rail trips)
-- reports in `<output-dir>/reports/`:
-  - `enrichment_summary.json`
-  - `ambiguous_trips.csv`
-  - `unmatched_trips.csv`
-  - `matched_trips_sample.csv`
+- GTFS feed in `--output-dir`
+- download manifest in `<work-dir>/downloads/<year>/manifest.json`
+- conversion summary in `<output-dir>/processing_summary.json`
 
 ## Notes
 

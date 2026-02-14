@@ -1251,14 +1251,15 @@ def load_gtfs_feed(gtfs_path: Path) -> Any:
         if has_calendar:
             if "exception_type" in calendar_dates.columns:
                 active_dates = calendar_dates[calendar_dates["exception_type"] == "1"].copy()
-                logger.debug(f"After filtering for exception_type=1: {len(active_dates)} rows")
+                logger.debug(
+                    "calendar.txt present; ignoring %s calendar_dates type=1 rows for regular day-of-week buckets",
+                    len(active_dates),
+                )
             else:
-                logger.warning("No exception_type column found in calendar_dates.txt - using all rows")
-                active_dates = calendar_dates.copy()
-
-            if not active_dates.empty:
-                service_day_frames.append(active_dates[["service_id", "day_of_week"]].copy())
-                logger.debug(f"Derived {len(active_dates)} service/day rows from calendar_dates.txt")
+                logger.debug(
+                    "calendar.txt present and calendar_dates has no exception_type; ignoring %s rows for regular day-of-week buckets",
+                    len(calendar_dates),
+                )
         else:
             # Fallback for feeds that provide only calendar_dates.txt (no calendar.txt).
             # Infer regular service days from exception patterns.
