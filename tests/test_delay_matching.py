@@ -263,5 +263,20 @@ class RouteCodeExtractionTests(unittest.TestCase):
         self.assertEqual(codes, set())
 
 
+class RenderHtmlTests(unittest.TestCase):
+    def test_render_html_injects_delays_endpoint(self):
+        timetable = {
+            "workdays": {},
+            "saturday": {},
+            "sunday": {},
+            "departures": {"workdays": [], "saturday": [], "sunday": []},
+        }
+        endpoint = "https://example.local/train_delays"
+
+        html = cli.render_html(timetable, cli.DEFAULT_TEMPLATE, "Test", endpoint)
+
+        self.assertIn('window.DELAYS_ENDPOINT = "https://example.local/train_delays";', html)
+
+
 if __name__ == "__main__":
     unittest.main()

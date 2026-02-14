@@ -8,6 +8,7 @@ import gzip
 import json
 import logging
 import math
+import os
 import re
 import unicodedata
 import zipfile
@@ -16,6 +17,28 @@ from pathlib import Path
 from typing import Any
 
 import pandas as pd
+try:
+    from dotenv import load_dotenv
+except ImportError:
+    def load_dotenv(*_args: Any, **_kwargs: Any) -> bool:
+        env_path = Path(__file__).resolve().with_name(".env")
+        if not env_path.exists():
+            return False
+        loaded = False
+        for raw_line in env_path.read_text(encoding="utf-8").splitlines():
+            line = raw_line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            key, value = line.split("=", 1)
+            key = key.strip()
+            value = value.strip()
+            if not key:
+                continue
+            if value and value[0] == value[-1] and value[0] in {'"', "'"}:
+                value = value[1:-1]
+            os.environ.setdefault(key, value)
+            loaded = True
+        return loaded
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -179,6 +202,7 @@ DEFAULT_TEMPLATE = """
       sunday: "Nedele"
     };
     const ENDPOINT_OVERRIDE_KEY = "train_delays_endpoint_override";
+    window.DELAYS_ENDPOINT = {{ delays_endpoint_json | safe }};
 
     let latestDelayRecords = [];
     const debugState = {
@@ -1033,7 +1057,12 @@ def build_timetable(feed: Any, station_id_from: str, station_id_to: str) -> dict
     }
 
 
-def render_html(timetable: dict[str, Any], template_str: str, title: str) -> str:
+def render_html(
+    timetable: dict[str, Any],
+    template_str: str,
+    title: str,
+    delays_endpoint: str | None = None,
+) -> str:
     """Render timetable to HTML."""
     try:
         from jinja2 import Template
@@ -1047,6 +1076,7 @@ def render_html(timetable: dict[str, Any], template_str: str, title: str) -> str
         sunday=timetable["sunday"],
         departures=departures,
         departures_json=json.dumps(departures, ensure_ascii=False),
+        delays_endpoint_json=json.dumps(delays_endpoint, ensure_ascii=False),
     )
 
 
@@ -1378,8 +1408,10 @@ def make_parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
+    load_dotenv()
     parser = make_parser()
     args = parser.parse_args()
+    delays_endpoint = (os.getenv("TIMETABLE_DELAYS_ENDPOINT") or "").strip() or None
 
     logger.debug(f"Starting with arguments: from_stop={args.from_stop}, to_stop={args.to_stop}")
     logger.debug(f"Labels: {args.from_label} -> {args.to_label}")
@@ -1399,7 +1431,7 @@ def main() -> int:
     forward_html_out = Path(args.html_out) if args.html_out else Path(default_output_name(args.from_label, args.to_label))
     if args.html_out or (not args.json_out and not args.stdout_json and not args.reverse):
         logger.debug(f"Writing forward HTML to: {forward_html_out}")
-        write_text(forward_html_out, render_html(forward, template, forward_title))
+        write_text(forward_html_out, render_html(forward, template, forward_title, delays_endpoint))
         print(f"Wrote HTML: {forward_html_out}")
 
     if args.json_out:
@@ -1421,7 +1453,7 @@ def main() -> int:
         )
 
         logger.debug(f"Writing reverse HTML to: {reverse_html_out}")
-        write_text(reverse_html_out, render_html(reverse, template, reverse_title))
+        write_text(reverse_html_out, render_html(reverse, template, reverse_title, delays_endpoint))
         print(f"Wrote reverse HTML: {reverse_html_out}")
 
         if args.reverse_json_out:

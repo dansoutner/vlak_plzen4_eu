@@ -1,14 +1,63 @@
+import os
 import re
 import unicodedata
+from pathlib import Path
 
 import requests
 from bs4 import BeautifulSoup
+try:
+    from dotenv import load_dotenv
+except ImportError:
+    def load_dotenv(*_args, **_kwargs):
+        env_path = Path(__file__).resolve().with_name(".env")
+        if not env_path.exists():
+            return False
+        loaded = False
+        for raw_line in env_path.read_text(encoding="utf-8").splitlines():
+            line = raw_line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            key, value = line.split("=", 1)
+            key = key.strip()
+            value = value.strip()
+            if not key:
+                continue
+            if value and value[0] == value[-1] and value[0] in {'"', "'"}:
+                value = value[1:-1]
+            os.environ.setdefault(key, value)
+            loaded = True
+        return loaded
 from fake_headers import Headers
 from flask import Flask, jsonify
 from flask_caching import Cache
 
+load_dotenv()
+
+
+def _env_int(name, default):
+    value = (os.getenv(name) or "").strip()
+    if not value:
+        return default
+    try:
+        return int(value)
+    except ValueError:
+        return default
+
+
+TRAIN_DELAYS_SOURCE_R_URL = (
+    os.getenv("TRAIN_DELAYS_SOURCE_R_URL") or "https://kam.mff.cuni.cz/~babilon/zponline"
+)
+TRAIN_DELAYS_SOURCE_OS_URL = (
+    os.getenv("TRAIN_DELAYS_SOURCE_OS_URL") or "https://kam.mff.cuni.cz/~babilon/zponlineos"
+)
+CACHE_TIMEOUT_SECONDS = max(_env_int("TRAIN_DELAYS_CACHE_TIMEOUT_SECONDS", 60), 1)
+CORS_ALLOW_ORIGIN = os.getenv("TRAIN_DELAYS_CORS_ALLOW_ORIGIN") or "*"
+CORS_ALLOW_METHODS = os.getenv("TRAIN_DELAYS_CORS_ALLOW_METHODS") or "GET, OPTIONS"
+CORS_ALLOW_HEADERS = os.getenv("TRAIN_DELAYS_CORS_ALLOW_HEADERS") or "Content-Type"
+CORS_MAX_AGE = os.getenv("TRAIN_DELAYS_CORS_MAX_AGE") or "600"
+
 app = Flask(__name__)
-cache = Cache(app, config={'CACHE_TYPE': 'simple'})
+cache = Cache(app, config={"CACHE_TYPE": "simple", "CACHE_DEFAULT_TIMEOUT": CACHE_TIMEOUT_SECONDS})
 
 
 TRAIN_ID_RE = re.compile(r"\b([A-Za-z]{1,6})\s*([0-9]{1,6})\b")
@@ -17,10 +66,10 @@ TIME_RE = re.compile(r"\b([0-2]?\d:[0-5]\d)\b")
 
 @app.after_request
 def add_cors_headers(response):
-    response.headers["Access-Control-Allow-Origin"] = "*"
-    response.headers["Access-Control-Allow-Methods"] = "GET, OPTIONS"
-    response.headers["Access-Control-Allow-Headers"] = "Content-Type"
-    response.headers["Access-Control-Max-Age"] = "600"
+    response.headers["Access-Control-Allow-Origin"] = CORS_ALLOW_ORIGIN
+    response.headers["Access-Control-Allow-Methods"] = CORS_ALLOW_METHODS
+    response.headers["Access-Control-Allow-Headers"] = CORS_ALLOW_HEADERS
+    response.headers["Access-Control-Max-Age"] = CORS_MAX_AGE
     return response
 
 
@@ -163,10 +212,10 @@ def scrape_babitron_delays(url):
     return results
 
 @app.route('/train_delays', methods=['GET', 'OPTIONS'])
-@cache.cached(timeout=60)
+@cache.cached()
 def get_delays():
-    delays_r = scrape_babitron_delays("https://kam.mff.cuni.cz/~babilon/zponline")
-    delays_os = scrape_babitron_delays("https://kam.mff.cuni.cz/~babilon/zponlineos")
+    delays_r = scrape_babitron_delays(TRAIN_DELAYS_SOURCE_R_URL)
+    delays_os = scrape_babitron_delays(TRAIN_DELAYS_SOURCE_OS_URL)
     delays = {**delays_r, **delays_os}
     return jsonify(delays)
 

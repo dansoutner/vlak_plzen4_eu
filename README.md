@@ -25,8 +25,33 @@ python3 -m venv venv
 Or install dependencies directly:
 
 ```bash
-./venv/bin/pip install beautifulsoup4 fake-headers flask flask-caching jinja2 pandas requests
+./venv/bin/pip install beautifulsoup4 fake-headers flask flask-caching jinja2 pandas python-dotenv requests
 ```
+
+## Environment configuration
+
+Create local configuration from the template:
+
+```bash
+cp .env.example .env
+```
+
+Set `TIMETABLE_DELAYS_ENDPOINT` in `.env` to your deployed delay API. Current production value:
+
+```bash
+TIMETABLE_DELAYS_ENDPOINT=https://danielsoutner.pythonanywhere.com/train_delays
+```
+
+Supported variables:
+
+- `TIMETABLE_DELAYS_ENDPOINT`
+- `TRAIN_DELAYS_SOURCE_R_URL`
+- `TRAIN_DELAYS_SOURCE_OS_URL`
+- `TRAIN_DELAYS_CACHE_TIMEOUT_SECONDS`
+- `TRAIN_DELAYS_CORS_ALLOW_ORIGIN`
+- `TRAIN_DELAYS_CORS_ALLOW_METHODS`
+- `TRAIN_DELAYS_CORS_ALLOW_HEADERS`
+- `TRAIN_DELAYS_CORS_MAX_AGE`
 
 ## Generate timetable pages
 
@@ -53,7 +78,7 @@ Default GTFS source is:
 
 Endpoint:
 
-- `GET /train_delays` (cached for 60 seconds)
+- `GET /train_delays` (cache timeout from `TRAIN_DELAYS_CACHE_TIMEOUT_SECONDS`, default `60`)
 
 Detailed contract:
 
@@ -64,7 +89,7 @@ Detailed contract:
 The generated HTML pages now:
 
 1. Show an **Aktualni odjezdy** block (current departures for active day).
-2. Poll `/train_delays` every 60 seconds.
+2. Poll delay API every 60 seconds.
 3. Match delay records to departures:
    - strict match: unique `train_number` (and optional train-category check) -> **high** confidence
    - strict tie-breaker: if duplicate `train_number` exists, use scheduled time tolerance (`<= 3 min`)
@@ -78,6 +103,13 @@ The generated HTML pages now:
    - confidence counts (`high`, `medium`, `unknown`)
    - match reason counts (`train_number`, `route_code`, `none`)
    - train-number availability in current departures (`with`, `without`)
+
+Delay endpoint resolution priority in generated HTML:
+
+1. `?delays_endpoint=...` URL query parameter
+2. `localStorage` override key `train_delays_endpoint_override`
+3. Build-time `TIMETABLE_DELAYS_ENDPOINT` from `.env`
+4. Fallback candidates (`/train_delays`, same-origin `/train_delays`, localhost when opened as `file:`)
 
 ## Run tests
 
@@ -118,5 +150,5 @@ Output:
 
 ## Notes
 
-- Timetable pages expect `/train_delays` on the same origin.
-- If this is deployed cross-origin, configure CORS on the API side.
+- If `TIMETABLE_DELAYS_ENDPOINT` is empty, timetable pages still fall back to same-origin `/train_delays`.
+- For cross-origin delay APIs, keep CORS enabled on the API side (configurable via `.env`).

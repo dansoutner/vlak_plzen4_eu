@@ -1,3 +1,5 @@
+import importlib
+import os
 import unittest
 from pathlib import Path
 from unittest.mock import Mock, patch
@@ -9,6 +11,41 @@ FIXTURES_DIR = Path(__file__).parent / "fixtures"
 
 
 class GetDelaysUnitTests(unittest.TestCase):
+    def test_runtime_config_defaults(self):
+        self.assertEqual(get_delays.TRAIN_DELAYS_SOURCE_R_URL, "https://kam.mff.cuni.cz/~babilon/zponline")
+        self.assertEqual(get_delays.TRAIN_DELAYS_SOURCE_OS_URL, "https://kam.mff.cuni.cz/~babilon/zponlineos")
+        self.assertEqual(get_delays.CACHE_TIMEOUT_SECONDS, 60)
+        self.assertEqual(get_delays.CORS_ALLOW_ORIGIN, "*")
+        self.assertEqual(get_delays.CORS_ALLOW_METHODS, "GET, OPTIONS")
+        self.assertEqual(get_delays.CORS_ALLOW_HEADERS, "Content-Type")
+        self.assertEqual(get_delays.CORS_MAX_AGE, "600")
+
+    def test_runtime_config_env_overrides(self):
+        overrides = {
+            "TRAIN_DELAYS_SOURCE_R_URL": "https://example.local/r",
+            "TRAIN_DELAYS_SOURCE_OS_URL": "https://example.local/os",
+            "TRAIN_DELAYS_CACHE_TIMEOUT_SECONDS": "123",
+            "TRAIN_DELAYS_CORS_ALLOW_ORIGIN": "https://client.example",
+            "TRAIN_DELAYS_CORS_ALLOW_METHODS": "GET",
+            "TRAIN_DELAYS_CORS_ALLOW_HEADERS": "X-Test",
+            "TRAIN_DELAYS_CORS_MAX_AGE": "42",
+        }
+        try:
+            with patch.dict(os.environ, overrides, clear=False):
+                module = importlib.reload(get_delays)
+                self.assertEqual(module.TRAIN_DELAYS_SOURCE_R_URL, "https://example.local/r")
+                self.assertEqual(module.TRAIN_DELAYS_SOURCE_OS_URL, "https://example.local/os")
+                self.assertEqual(module.CACHE_TIMEOUT_SECONDS, 123)
+
+                response = Mock(headers={})
+                module.add_cors_headers(response)
+                self.assertEqual(response.headers["Access-Control-Allow-Origin"], "https://client.example")
+                self.assertEqual(response.headers["Access-Control-Allow-Methods"], "GET")
+                self.assertEqual(response.headers["Access-Control-Allow-Headers"], "X-Test")
+                self.assertEqual(response.headers["Access-Control-Max-Age"], "42")
+        finally:
+            importlib.reload(get_delays)
+
     def test_get_delay_legacy_values(self):
         self.assertEqual(get_delays.get_delay("bez zpoždění"), 0)
         self.assertEqual(get_delays.get_delay("včas"), 0)
