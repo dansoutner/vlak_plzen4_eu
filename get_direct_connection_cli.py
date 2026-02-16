@@ -374,14 +374,14 @@ DEFAULT_TEMPLATE = """
     function statusLabel(match) {
       const status = match.status || "unknown";
       const delayMinutes = match.record ? match.record.delayMinutes : null;
-      if (status === "on_time") return "vcas";
+      if (status === "on_time") return "včas";
       if (status === "delayed") {
-        return delayMinutes == null ? "zpozdeni" : `+${delayMinutes}`;
+        return delayMinutes == null ? "zpoždění" : `+${delayMinutes}`;
       }
-      if (status === "canceled") return "zrusen";
+      if (status === "canceled") return "zrušen";
       if (status === "diverted") return "odklon";
-      if (status === "disruption") return "vyluka";
-      return "nezname";
+      if (status === "disruption") return "výluka";
+      return "neznamé";
     }
 
     function countsToText(counts) {
@@ -560,7 +560,7 @@ DEFAULT_TEMPLATE = """
         if (status === "delayed") {
           const values = Array.from(new Set(matches.map((match) => match.record ? match.record.delayMinutes : null)));
           if (values.length !== 1 || values[0] == null) {
-            label = "zpozdeni";
+            label = "zpoždění";
           }
         }
 
@@ -709,7 +709,7 @@ DEFAULT_TEMPLATE = """
         <div id="current-day-label"></div>
         <table id="current-table">
           <thead>
-            <tr><th>Cas</th><th>Linka</th><th>Smer</th><th>Zpozdeni</th></tr>
+            <tr><th>Cas</th><th>Linka</th><th>Smer</th><th>Zpoždění</th></tr>
           </thead>
           <tbody id="current-departures-body">
             <tr><td colspan="4">Nacitam data...</td></tr>

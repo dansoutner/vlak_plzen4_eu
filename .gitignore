@@ -25,7 +25,7 @@ dist/
 build/
 
 # Data directories
-data/official_rail_work/downloads/
+data/**
 
 # CZPTT2GTFS outputs
 czptt2gtfs/out/
