@@ -5,30 +5,10 @@ from pathlib import Path
 
 import requests
 from bs4 import BeautifulSoup
-try:
-    from dotenv import load_dotenv
-except ImportError:
-    def load_dotenv(*_args, **_kwargs):
-        env_path = Path(__file__).resolve().with_name(".env")
-        if not env_path.exists():
-            return False
-        loaded = False
-        for raw_line in env_path.read_text(encoding="utf-8").splitlines():
-            line = raw_line.strip()
-            if not line or line.startswith("#") or "=" not in line:
-                continue
-            key, value = line.split("=", 1)
-            key = key.strip()
-            value = value.strip()
-            if not key:
-                continue
-            if value and value[0] == value[-1] and value[0] in {'"', "'"}:
-                value = value[1:-1]
-            os.environ.setdefault(key, value)
-            loaded = True
-        return loaded
+
+from dotenv import load_dotenv
 from fake_headers import Headers
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_caching import Cache
 
 load_dotenv()
@@ -70,6 +50,7 @@ def add_cors_headers(response):
     response.headers["Access-Control-Allow-Methods"] = CORS_ALLOW_METHODS
     response.headers["Access-Control-Allow-Headers"] = CORS_ALLOW_HEADERS
     response.headers["Access-Control-Max-Age"] = CORS_MAX_AGE
+    response.headers["Vary"] = "Origin"
     return response
 
 
@@ -212,12 +193,18 @@ def scrape_babitron_delays(url):
     return results
 
 @app.route('/train_delays', methods=['GET', 'OPTIONS'])
+@app.route('/train_delays/', methods=['GET', 'OPTIONS'])
 @cache.cached()
 def get_delays():
+    if request.method == "OPTIONS":
+        return ("", 204)
     delays_r = scrape_babitron_delays(TRAIN_DELAYS_SOURCE_R_URL)
     delays_os = scrape_babitron_delays(TRAIN_DELAYS_SOURCE_OS_URL)
     delays = {**delays_r, **delays_os}
     return jsonify(delays)
+
+
+application = app
 
 
 if __name__ == "__main__":

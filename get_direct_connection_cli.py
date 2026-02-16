@@ -17,28 +17,7 @@ from pathlib import Path
 from typing import Any
 
 import pandas as pd
-try:
-    from dotenv import load_dotenv
-except ImportError:
-    def load_dotenv(*_args: Any, **_kwargs: Any) -> bool:
-        env_path = Path(__file__).resolve().with_name(".env")
-        if not env_path.exists():
-            return False
-        loaded = False
-        for raw_line in env_path.read_text(encoding="utf-8").splitlines():
-            line = raw_line.strip()
-            if not line or line.startswith("#") or "=" not in line:
-                continue
-            key, value = line.split("=", 1)
-            key = key.strip()
-            value = value.strip()
-            if not key:
-                continue
-            if value and value[0] == value[-1] and value[0] in {'"', "'"}:
-                value = value[1:-1]
-            os.environ.setdefault(key, value)
-            loaded = True
-        return loaded
+from dotenv import load_dotenv
 
 logging.basicConfig(
     level=logging.DEBUG,

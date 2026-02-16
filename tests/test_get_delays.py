@@ -4,7 +4,7 @@ import unittest
 from pathlib import Path
 from unittest.mock import Mock, patch
 
-import get_delays
+import train_delays
 
 
 FIXTURES_DIR = Path(__file__).parent / "fixtures"
