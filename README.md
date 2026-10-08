@@ -1,12 +1,16 @@
 # Jizdni Rady Tools
 
-Tools for generating Doubravka <-> Hlavni nadrazi timetable HTML and attaching live delay status from Babitron.
+Tools for generating Plzeň-Doubravka <-> Plzeň hl.n. timetable HTML from official Czech rail GTFS and attaching live delay status from [Babitron](https://babitron.kam.mff.cuni.cz/).
 
 ## What is in this repo
 
 - `get_direct_connection_cli.py`: builds timetable data from GTFS and renders HTML.
-- `get_delays.py`: Flask endpoint `/train_delays` that scrapes live delay tables.
+- `doubravka_hlavak.sh`: regenerates both timetable pages from the official rail GTFS.
+- `train_delays.py`: Flask endpoint `/train_delays/` that scrapes live delay tables from Babitron (deployed on PythonAnywhere).
+- `scripts/download_and_convert_official_gtfs.py`: downloads official rail XML and converts it to GTFS.
+- `czptt2gtfs/`: CZPTT XML -> GTFS converter used by the download script.
 - `doubravka_hlavak.html`, `hlavak_doubravka.html`: generated timetable pages.
+- `index.html`: landing page.
 - `docs/train_delays_response.md`: delay API response contract.
 - `tests/`: parser and matching tests with HTML fixtures.
 
@@ -25,7 +29,7 @@ python3 -m venv venv
 Or install dependencies directly:
 
 ```bash
-./venv/bin/pip install beautifulsoup4 fake-headers flask flask-caching jinja2 pandas python-dotenv requests
+./venv/bin/pip install beautifulsoup4 fake-headers flask flask-caching html5lib jinja2 pandas python-dotenv requests tqdm
 ```
 
 ## Environment configuration
@@ -45,8 +49,8 @@ TIMETABLE_DELAYS_ENDPOINT=https://danielsoutner.pythonanywhere.com/train_delays
 Supported variables:
 
 - `TIMETABLE_DELAYS_ENDPOINT`
-- `TRAIN_DELAYS_SOURCE_R_URL`
-- `TRAIN_DELAYS_SOURCE_OS_URL`
+- `TRAIN_DELAYS_SOURCE_R_URL` (default `https://babitron.kam.mff.cuni.cz/zponline.html`, long-distance trains)
+- `TRAIN_DELAYS_SOURCE_OS_URL` (default `https://babitron.kam.mff.cuni.cz/zponlineos.html`, regional trains)
 - `TRAIN_DELAYS_CACHE_TIMEOUT_SECONDS`
 - `TRAIN_DELAYS_CORS_ALLOW_ORIGIN`
 - `TRAIN_DELAYS_CORS_ALLOW_METHODS`
@@ -55,30 +59,43 @@ Supported variables:
 
 ## Generate timetable pages
 
+Pages are generated from the official rail GTFS (see [Download and convert official rail GTFS](#download-and-convert-official-rail-gtfs)):
+
 ```bash
-./venv/bin/python get_direct_connection_cli.py \
-  --from-stop ST_44120 \
-  --to-stop ST_44121 \
-  --from-label "Doubravka" \
-  --to-label "Hlavni nadrazi" \
-  --html-out doubravka_hlavak.html \
-  --reverse \
-  --reverse-html-out hlavak_doubravka.html
+./doubravka_hlavak.sh
 ```
 
-Default GTFS source is:
+which runs, for each direction:
 
-- `jizdni-rady-czech-republic/data/merged`
+```bash
+./venv/bin/python get_direct_connection_cli.py \
+  --from-stop 73265 \
+  --to-stop 73275 \
+  --from-label "Doubravka" \
+  --to-label "Hlavní nádraží" \
+  --html-out doubravka_hlavak.html \
+  --gtfs-path data/official_rail_work/official_gtfs/2026
+```
+
+Stop IDs in the official GTFS: `73265` = Plzeň-Doubravka, `73275` = Plzeň hl.n.
+
+When `--gtfs-path` is omitted, the CLI uses the newest year directory in `data/official_rail_work/official_gtfs/`. Default stops are `73265` → `73275` (Doubravka → hl.n.).
+
+The 2026 official GTFS is valid from 2025-12-14 to 2026-12-12. Before the timetable change, download the next year's data and regenerate the pages.
 
 ## Run delay API
 
 ```bash
-./venv/bin/python get_delays.py
+./venv/bin/python train_delays.py
 ```
 
 Endpoint:
 
-- `GET /train_delays` (cache timeout from `TRAIN_DELAYS_CACHE_TIMEOUT_SECONDS`, default `60`)
+- `GET /train_delays/` (cache timeout from `TRAIN_DELAYS_CACHE_TIMEOUT_SECONDS`, default `60`); `/train_delays` without the trailing slash redirects (308) to it.
+
+The scraper reads Babitron tables (`<table align=CENTER bgcolor=0000ff>`, six columns per row). Babitron pages are UTF-8 without a charset header and leave `<TD>` tags unclosed, so the scraper forces UTF-8 and parses with `html5lib`.
+
+For the PythonAnywhere WSGI deployment, the module exposes `application`. After changing source URLs, update `.env` on the server too, because `.env` values override the defaults in code.
 
 Detailed contract:
 
@@ -119,6 +136,7 @@ Delay endpoint resolution priority in generated HTML:
 
 Test coverage includes:
 
+- scraping the current Babitron page format (unclosed `<TD>`, missing charset)
 - delay parser behavior (`on_time`, `delayed`, `canceled`, `diverted`, `disruption`, `unknown`)
 - backward-compatible response keys
 - additive normalized fields
@@ -131,10 +149,12 @@ Use official CZ rail XML data (base + updates), convert with local `czptt2gtfs`,
 ```bash
 ./venv/bin/python scripts/download_and_convert_official_gtfs.py \
   --year 2026 \
-  --work-dir /Users/dan/Data/STAN/jizdni_rady/data/official_rail_work \
-  --output-dir /Users/dan/Data/STAN/jizdni_rady/data/official_rail_work/official_gtfs/2026 \
+  --work-dir data/official_rail_work \
+  --output-dir data/official_rail_work/official_gtfs/2026 \
   --updates-mode all
 ```
+
+`data/` is git-ignored, so the feed has to be generated locally.
 
 Key flags:
 

@@ -8,6 +8,7 @@ dependencies = [
   "fake-headers>=1.0",
   "flask>=3.0",
   "flask-caching>=2.3",
+  "html5lib>=1.1",
   "jinja2>=3.1",
   "pandas>=2.0",
   "python-dotenv>=1.0",
@@ -26,4 +27,4 @@ build-backend = "setuptools.build_meta"
 include = ["czptt2gtfs"]
 
 [tool.setuptools.package-data]
-czptt2gtfs = ["komercni_druhy.xml", "sr70.csv"]
+czptt2gtfs = ["data/komercni_druhy.xml", "data/sr70.csv"]

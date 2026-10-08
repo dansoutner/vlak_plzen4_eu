@@ -1,7 +1,6 @@
 import os
 import re
 import unicodedata
-from pathlib import Path
 
 import requests
 from bs4 import BeautifulSoup
@@ -25,10 +24,10 @@ def _env_int(name, default):
 
 
 TRAIN_DELAYS_SOURCE_R_URL = (
-    os.getenv("TRAIN_DELAYS_SOURCE_R_URL") or "https://kam.mff.cuni.cz/~babilon/zponline"
+    os.getenv("TRAIN_DELAYS_SOURCE_R_URL") or "https://babitron.kam.mff.cuni.cz/zponline.html"
 )
 TRAIN_DELAYS_SOURCE_OS_URL = (
-    os.getenv("TRAIN_DELAYS_SOURCE_OS_URL") or "https://kam.mff.cuni.cz/~babilon/zponlineos"
+    os.getenv("TRAIN_DELAYS_SOURCE_OS_URL") or "https://babitron.kam.mff.cuni.cz/zponlineos.html"
 )
 CACHE_TIMEOUT_SECONDS = max(_env_int("TRAIN_DELAYS_CACHE_TIMEOUT_SECONDS", 60), 1)
 CORS_ALLOW_ORIGIN = os.getenv("TRAIN_DELAYS_CORS_ALLOW_ORIGIN") or "*"
@@ -126,7 +125,9 @@ def parse_scheduled_actual_times(scheduled_actual_text):
 
 
 def source_page_from_url(url):
-    lowered = url.lower()
+    lowered = url.lower().rstrip("/")
+    if lowered.endswith(".html"):
+        lowered = lowered[: -len(".html")]
     if lowered.endswith("zponlineos"):
         return "zponlineos"
     return "zponline"
@@ -141,7 +142,10 @@ def scrape_babitron_delays(url):
     if response.status_code != 200:
         raise Exception(f"Chyba při stahování stránky: {response.status_code}")
 
-    soup = BeautifulSoup(response.text, "html.parser")
+    # Babitron neposílá charset v hlavičce, stránky jsou ale v UTF-8.
+    response.encoding = "utf-8"
+    # html5lib korektně uzavírá implicitně neukončené <TD>, html.parser je vnořuje.
+    soup = BeautifulSoup(response.text, "html5lib")
     tables = soup.find_all("table", {"align": "CENTER", "bgcolor": "0000ff"})
 
     if not tables:
@@ -192,7 +196,6 @@ def scrape_babitron_delays(url):
 
     return results
 
-@app.route('/train_delays', methods=['GET', 'OPTIONS'])
 @app.route('/train_delays/', methods=['GET', 'OPTIONS'])
 @cache.cached()
 def get_delays():
@@ -202,7 +205,6 @@ def get_delays():
     delays_os = scrape_babitron_delays(TRAIN_DELAYS_SOURCE_OS_URL)
     delays = {**delays_r, **delays_os}
     return jsonify(delays)
-
 
 application = app
 

@@ -1,6 +1,6 @@
 # `/train_delays` Response Contract
 
-This document describes the current return structure of `/train_delays` from `/Users/dan/Data/STAN/jizdni_rady/get_delays.py`.
+This document describes the current return structure of `/train_delays` from `train_delays.py`.
 
 ## Endpoint
 

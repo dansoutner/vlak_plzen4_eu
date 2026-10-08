@@ -5,6 +5,7 @@ import argparse
 import csv
 import datetime
 import logging
+import re
 from pathlib import Path
 import xml.etree.ElementTree as ET
 
@@ -18,10 +19,11 @@ EXC_REMOVE = 2
 ACT_STOP = "0001"
 ACT_ON_ONLY = "0028"
 ACT_OFF_ONLY = "0029"
+TIME_RE = re.compile(r"\d{2}:\d{2}:\d{2}\.\d+[+-]\d{2}:\d{2}")
 
 PACKAGE_DIR = Path(__file__).resolve().parent
 DEFAULT_KOMERCNI_DRUHY_PATH = PACKAGE_DIR / "data" / "komercni_druhy.xml"
-DEFAULT_SR70_PATH = PACKAGE_DIR / "sr70.csv"
+DEFAULT_SR70_PATH = PACKAGE_DIR / "data" / "sr70.csv"
 
 KOMERCNI_DRUHY: dict[str, str] = {}
 SR70: dict[int, dict[str, str]] = {}
@@ -72,6 +74,15 @@ class Calendar:
         self.dates = frozenset(r)
         self.bitmap = bitmap
 
+    def without(self, removed: set[datetime.date] | frozenset[datetime.date]) -> "Calendar":
+        """Kopie kalendáře bez zadaných dnů (období platnosti zůstává stejné)."""
+        cal = Calendar.__new__(Calendar)
+        cal.start = self.start
+        cal.end = self.end
+        cal.dates = self.dates - removed
+        cal.bitmap = None
+        return cal
+
     @property
     def service_interval(self):
         cur = self.start
@@ -119,30 +130,50 @@ def parse_timing(elem):
     if elem is None:
         return None
     val = elem.find("Time").text
-    if not val.endswith(".0000000+01:00"):
-        raise Exception
+    # Čas je místní; posun bývá +01:00 (základní JŘ) nebo +02:00 (opravy v letním čase) při stejném místním čase.
+    if not TIME_RE.fullmatch(val):
+        raise ValueError(f"Neočekávaný formát času: {val}")
     return datetime.time.fromisoformat(val.split(".")[0])
 
 
+def parse_message_time(text: str | None) -> datetime.datetime | None:
+    if not text:
+        return None
+    try:
+        return datetime.datetime.fromisoformat(text.strip())
+    except ValueError:
+        return None
+
+
+def pa_key_from(ident_elem) -> tuple[str, str]:
+    return ident_elem.find("Core").text, ident_elem.find("Variant").text
+
+
+class Cancellation:
+    """Zpráva CZCanceledPTTMessage: zrušení jízdy daného PA ve vybrané dny."""
+
+    def __init__(self, root):
+        self.pa_key = pa_key_from(root.find("PlannedTransportIdentifiers[ObjectType='PA']"))
+        self.created = parse_message_time(root.findtext("CZPTTCancelation"))
+        self.dates = Calendar(root.find("PlannedCalendar")).dates
+
+
 class Train:
-    def __init__(self, file: Path):
-        tree = ET.parse(file)
-        root = tree.getroot()
+    def __init__(self, file: Path, root=None):
+        if root is None:
+            root = ET.parse(file).getroot()
         pa_elem = root.find("Identifiers/PlannedTransportIdentifiers[ObjectType='PA']")
         tr_elem = root.find("Identifiers/PlannedTransportIdentifiers[ObjectType='TR']")
-        pa_core = pa_elem.find("Core").text
-        tr_core = tr_elem.find("Core").text
-        pa_variant = pa_elem.find("Variant").text
-        tr_variant = tr_elem.find("Variant").text
-        if pa_core != tr_core or pa_variant != tr_variant:
-            logger.warning(
-                "PA_ID != TR_ID není podporováno (typicky se vyskytuje u výlukových jízdních řádů) - %s",
-                file,
-            )
+        pa_core, pa_variant = pa_key_from(pa_elem)
+        tr_core, tr_variant = pa_key_from(tr_elem)
+        # Jízda je jednoznačně určena PA (Path Assignment). Náhradní jízdy z měsíčních oprav mají vlastní PA,
+        # ale mohou sdílet TR s jinými PA, proto TR jako klíč nestačí.
+        self.pa_key = (pa_core, pa_variant)
+        self.created = parse_message_time(root.findtext("CZPTTCreation"))
         cal_elem = root.find("CZPTTInformation/PlannedCalendar")
-        self.calendar = load_calendar(cal_elem, calendars_map=calendars)
-        self.id = tr_core.strip("-").lstrip("0").rstrip("A") + (
-            "-" + tr_variant.lstrip("0") if int(tr_variant) else ""
+        self.calendar = Calendar(cal_elem)
+        self.id = pa_core.strip("-").lstrip("0").rstrip("A") + (
+            "-" + pa_variant.lstrip("0") if int(pa_variant) else ""
         )
         self.id_core = tr_core
         self.id_variant = tr_variant
@@ -172,8 +203,9 @@ class Train:
                 arr = dep
             if dep is None and arr is not None:
                 dep = arr
-            if number is None:  # bereme první číslo vlaku, změny po cestě neřešíme
-                number = int(loc.find("OperationalTrainNumber").text)
+            number_elem = loc.find("OperationalTrainNumber")
+            if number is None and number_elem is not None:  # bereme první číslo vlaku, změny po cestě neřešíme
+                number = int(number_elem.text)
                 traffic_type_elem = loc.find("CommercialTrafficType")
                 if traffic_type_elem is not None and traffic_type_elem.text in KOMERCNI_DRUHY:
                     com_type = KOMERCNI_DRUHY[traffic_type_elem.text]
@@ -247,6 +279,47 @@ def gtfs_time(time_value: datetime.time, *, state: dict[str, object], train_shor
     return f"{hour}:{minute:02d}:{second:02d}"
 
 
+def apply_cancellations(trains_by_pa: dict[tuple[str, str], Train], cancellations: list[Cancellation]) -> None:
+    applied = unmatched = superseded = removed_days = 0
+    for cancellation in cancellations:
+        train = trains_by_pa.get(cancellation.pa_key)
+        if train is None:
+            unmatched += 1  # typicky PA s jedinou zastávkou v ČR, které jsme přeskočili
+            continue
+        if cancellation.created and train.created and cancellation.created < train.created:
+            superseded += 1  # PA bylo po zrušení vydáno znovu, platí novější verze
+            continue
+        removed = train.calendar.dates & cancellation.dates
+        if removed:
+            train.calendar = train.calendar.without(removed)
+            removed_days += len(removed)
+        applied += 1
+    logger.info(
+        "Zrušení: %d aplikováno (%d dní jízd odebráno), %d bez odpovídajícího PA, %d nahrazeno novější verzí PA",
+        applied,
+        removed_days,
+        unmatched,
+        superseded,
+    )
+
+
+def log_overlapping_trains(trains) -> None:
+    """Upozorní na vlaky se stejným číslem, které jedou ve stejný den ve více variantách (PA)."""
+    by_number: dict[int | None, list[Train]] = {}
+    for train in trains:
+        by_number.setdefault(train.number, []).append(train)
+    overlapping = 0
+    for number, variants in by_number.items():
+        for i, first in enumerate(variants):
+            for second in variants[i + 1 :]:
+                shared = first.calendar.dates & second.calendar.dates
+                if shared and {s[0] for s in first.stops} & {s[0] for s in second.stops}:
+                    overlapping += 1
+                    logger.debug("Vlak %s jede %d dní ve variantách %s a %s", number, len(shared), first.id, second.id)
+    if overlapping:
+        logger.warning("%d dvojic variant téhož vlaku se překrývá v kalendáři i trase", overlapping)
+
+
 def run_conversion(
     input_dir: Path,
     output_dir: Path,
@@ -261,8 +334,9 @@ def run_conversion(
 
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    cals_for_core: dict[str, set[datetime.date]] = {}
-    trains: dict[str, Train] = {}
+    trains_by_pa: dict[tuple[str, str], Train] = {}
+    invalid_files = 0
+    cancellations: list[Cancellation] = []
 
     xml_files = [
         file
@@ -271,21 +345,40 @@ def run_conversion(
     ]
     for file in tqdm.tqdm(xml_files):
         logger.debug("Processing %s", file)
-        train = Train(file)
+        root = ET.parse(file).getroot()
+        if root.tag == "CZCanceledPTTMessage":
+            cancellations.append(Cancellation(root))
+            continue
+        try:
+            train = Train(file, root)
+        except Exception:
+            invalid_files += 1
+            logger.warning("Nelze zpracovat %s", file, exc_info=True)
+            continue
         if len(train.stops) <= 1:
             # Vlak s jednou zastávkou nemá smysl. Typicky mezinárodní vlak, který stojí na jediném místě v ČR.
             continue
-        cfc = cals_for_core.setdefault(train.id_core, set())
-        if train.calendar.dates & cfc:
-            logger.warning(
-                "VAROVÁNÍ: Překrývající se kalendáře pro varianty core id %s (při přidávání varianty %s), průnik %r",
-                train.id_core,
-                train.id_variant,
-                (train.calendar.dates & cfc),
-            )
+        previous = trains_by_pa.get(train.pa_key)
+        if previous is not None and previous.created and train.created and previous.created > train.created:
             continue
-        cfc |= train.calendar.dates
+        trains_by_pa[train.pa_key] = train
+
+    if invalid_files:
+        logger.warning("Přeskočeno %d nezpracovatelných XML souborů", invalid_files)
+    apply_cancellations(trains_by_pa, cancellations)
+
+    trains: dict[str, Train] = {}
+    for train in trains_by_pa.values():
+        if not train.calendar.dates:
+            continue  # všechny dny jízdy byly zrušeny
+        if train.id in trains:
+            raise ValueError(f"Duplicitní trip_id {train.id} pro PA {train.pa_key}")
         trains[train.id] = train
+    log_overlapping_trains(trains.values())
+
+    # Stejné kalendáře (stejná množina dnů) sdílí jedno service_id
+    for train in trains.values():
+        train.calendar = calendars.setdefault(train.calendar.dates, train.calendar)
 
     all_stops = {stop[0] for train in trains.values() for stop in train.stops}
 
@@ -324,7 +417,7 @@ def run_conversion(
                 }
             )
 
-    train_list = sorted(trains.values(), key=lambda train: (train.number, train.id_variant))
+    train_list = sorted(trains.values(), key=lambda train: (train.number or 0, train.id_variant, train.id))
     # Protože vlaky nemají linky v konvenčním smyslu, uděláme pro každý vlak vlastní route
     with (output_dir / "routes.txt").open("w", newline="", encoding="utf-8") as fh:
         wr = csv.DictWriter(fh, ["route_id", "route_short_name", "route_long_name", "route_type"])

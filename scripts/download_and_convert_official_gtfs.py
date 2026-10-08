@@ -296,25 +296,58 @@ def try_extract_gzip(
 ) -> int:
     extracted = 0
     try:
-        with gzip.open(archive_path, "rb") as gz_file:
-            with tarfile.open(fileobj=gz_file, mode="r|gz") as tar_file:
-                for member in tar_file:
-                    if member.isdir() or not member.name.lower().endswith(".xml"):
-                        continue
-                    source = tar_file.extractfile(member)
-                    if source is None:
-                        continue
+        with tarfile.open(archive_path, mode="r:gz") as tar_file:
+            for member in tar_file:
+                if member.isdir() or not member.name.lower().endswith(".xml"):
+                    continue
+                source = tar_file.extractfile(member)
+                if source is None:
+                    continue
 
-                    output_name = Path(member.name).name
-                    output_path = xml_output_dir / output_name
-                    register_override(output_name, archive_path.name, source_by_file, overrides)
+                output_name = Path(member.name).name
+                output_path = xml_output_dir / output_name
+                register_override(output_name, archive_path.name, source_by_file, overrides)
 
-                    with source, output_path.open("wb") as target_file:
-                        shutil.copyfileobj(source, target_file)
-                    extracted += 1
+                with source, output_path.open("wb") as target_file:
+                    shutil.copyfileobj(source, target_file)
+                extracted += 1
+    except tarfile.ReadError:
+        # Měsíční opravy jsou jediný XML soubor zabalený přímo gzipem (navzdory příponě .xml.zip).
+        return try_extract_plain_gzip(archive_path, xml_output_dir, source_by_file, overrides)
     except (tarfile.TarError, OSError):
         return 0
     return extracted
+
+
+def plain_gzip_output_name(archive_path: Path) -> str:
+    name = archive_path.name
+    for suffix in (".zip", ".gz"):
+        if name.lower().endswith(suffix):
+            name = name[: -len(suffix)]
+            break
+    if not name.lower().endswith(".xml"):
+        name += ".xml"
+    return name
+
+
+def try_extract_plain_gzip(
+    archive_path: Path,
+    xml_output_dir: Path,
+    source_by_file: dict[str, str],
+    overrides: list[dict[str, str]],
+) -> int:
+    output_name = plain_gzip_output_name(archive_path)
+    output_path = xml_output_dir / output_name
+    temp_path = output_path.with_name(output_path.name + ".part")
+    try:
+        with gzip.open(archive_path, "rb") as source, temp_path.open("wb") as target_file:
+            shutil.copyfileobj(source, target_file)
+    except (gzip.BadGzipFile, EOFError, OSError):
+        temp_path.unlink(missing_ok=True)
+        return 0
+    register_override(output_name, archive_path.name, source_by_file, overrides)
+    temp_path.replace(output_path)
+    return 1
 
 
 def try_extract_zip(
@@ -376,9 +409,25 @@ def extract_and_merge_xml_archives(
 
     base_extracted = extract_xml_archive(base_archive, xml_output_dir, source_by_file, overrides)
     updates_extracted = 0
+    failed_updates: list[str] = []
     for update_archive in update_archives:
-        LOGGER.info("Extracting update archive %s", update_archive)
-        updates_extracted += extract_xml_archive(update_archive, xml_output_dir, source_by_file, overrides)
+        LOGGER.debug("Extracting update archive %s", update_archive)
+        extracted = extract_xml_archive(update_archive, xml_output_dir, source_by_file, overrides)
+        if extracted == 0:
+            failed_updates.append(str(update_archive))
+        updates_extracted += extracted
+    LOGGER.info(
+        "Extracted %s XML files from %s update archives (%s overrides)",
+        updates_extracted,
+        len(update_archives),
+        len(overrides),
+    )
+    if failed_updates:
+        LOGGER.warning(
+            "No XML extracted from %s update archives, e.g. %s",
+            len(failed_updates),
+            failed_updates[:5],
+        )
 
     return {
         "xml_output_dir": str(xml_output_dir),
@@ -386,6 +435,8 @@ def extract_and_merge_xml_archives(
         "update_archives": [str(path) for path in update_archives],
         "base_xml_files_written": base_extracted,
         "update_xml_files_written": updates_extracted,
+        "failed_update_archives_count": len(failed_updates),
+        "failed_update_archives": failed_updates,
         "final_xml_file_count": len(source_by_file),
         "overrides_count": len(overrides),
         "overrides": overrides,
@@ -542,7 +593,9 @@ def resolve_extraction_log(
     base_archive: Path,
     update_archives: list[Path],
 ) -> dict[str, Any]:
-    if skip_download and has_xml_files(xml_output_dir):
+    # Existující XML použijeme jen tehdy, když nemáme stažené archivy, ze kterých by šly rozbalit znovu
+    # (jinak by se do výsledku nedostaly nově stažené opravy).
+    if skip_download and has_xml_files(xml_output_dir) and not base_archive.exists():
         return {
             "xml_output_dir": str(xml_output_dir),
             "reused_existing_xml_dir": True,

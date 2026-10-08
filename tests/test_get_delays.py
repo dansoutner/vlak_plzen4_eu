@@ -4,7 +4,9 @@ import unittest
 from pathlib import Path
 from unittest.mock import Mock, patch
 
-import train_delays
+import requests
+
+import train_delays as get_delays
 
 
 FIXTURES_DIR = Path(__file__).parent / "fixtures"
@@ -12,8 +14,8 @@ FIXTURES_DIR = Path(__file__).parent / "fixtures"
 
 class GetDelaysUnitTests(unittest.TestCase):
     def test_runtime_config_defaults(self):
-        self.assertEqual(get_delays.TRAIN_DELAYS_SOURCE_R_URL, "https://kam.mff.cuni.cz/~babilon/zponline")
-        self.assertEqual(get_delays.TRAIN_DELAYS_SOURCE_OS_URL, "https://kam.mff.cuni.cz/~babilon/zponlineos")
+        self.assertEqual(get_delays.TRAIN_DELAYS_SOURCE_R_URL, "https://babitron.kam.mff.cuni.cz/zponline.html")
+        self.assertEqual(get_delays.TRAIN_DELAYS_SOURCE_OS_URL, "https://babitron.kam.mff.cuni.cz/zponlineos.html")
         self.assertEqual(get_delays.CACHE_TIMEOUT_SECONDS, 60)
         self.assertEqual(get_delays.CORS_ALLOW_ORIGIN, "*")
         self.assertEqual(get_delays.CORS_ALLOW_METHODS, "GET, OPTIONS")
@@ -83,8 +85,8 @@ class GetDelaysUnitTests(unittest.TestCase):
             (None, None),
         )
 
-    @patch("get_delays.Headers.generate", return_value={"User-Agent": "unit-test"})
-    @patch("get_delays.requests.get")
+    @patch("train_delays.Headers.generate", return_value={"User-Agent": "unit-test"})
+    @patch("train_delays.requests.get")
     def test_scrape_contract_from_zponline_fixture(self, mock_get: Mock, _mock_headers: Mock):
         fixture = (FIXTURES_DIR / "zponline.html").read_text(encoding="utf-8")
         mock_get.return_value = Mock(status_code=200, text=fixture)
@@ -133,8 +135,8 @@ class GetDelaysUnitTests(unittest.TestCase):
         self.assertEqual(delayed_item["delay"], 5)
         self.assertEqual(delayed_item["delay_minutes"], 5)
 
-    @patch("get_delays.Headers.generate", return_value={"User-Agent": "unit-test"})
-    @patch("get_delays.requests.get")
+    @patch("train_delays.Headers.generate", return_value={"User-Agent": "unit-test"})
+    @patch("train_delays.requests.get")
     def test_scrape_contract_from_zponlineos_fixture(self, mock_get: Mock, _mock_headers: Mock):
         fixture = (FIXTURES_DIR / "zponlineos.html").read_text(encoding="utf-8")
         mock_get.return_value = Mock(status_code=200, text=fixture)
@@ -146,6 +148,37 @@ class GetDelaysUnitTests(unittest.TestCase):
         self.assertIsNone(item["delay"])
         self.assertIsNone(item["delay_minutes"])
         self.assertEqual(item["source_page"], "zponlineos")
+
+    @patch("train_delays.Headers.generate", return_value={"User-Agent": "unit-test"})
+    @patch("train_delays.requests.get")
+    def test_scrape_babitron_2026_unclosed_cells_and_missing_charset(self, mock_get: Mock, _mock_headers: Mock):
+        # Babitron (babitron.kam.mff.cuni.cz) neuzavírá <TD> a neposílá charset v hlavičce.
+        response = requests.Response()
+        response.status_code = 200
+        response._content = (FIXTURES_DIR / "zponline_babitron_2026.html").read_bytes()
+        response.headers["Content-Type"] = "text/html"
+        mock_get.return_value = response
+
+        result = get_delays.scrape_babitron_delays("https://babitron.kam.mff.cuni.cz/zponline.html")
+        self.assertEqual(set(result), {"rj 55", "Sp 1703"})
+
+        delayed = result["rj 55"]
+        self.assertEqual(delayed["name"], "Vindobona")
+        self.assertEqual(delayed["station_text"], "Svitavy-Lány")
+        self.assertEqual(delayed["status"], "delayed")
+        self.assertEqual(delayed["delay_minutes"], 14)
+        self.assertEqual(delayed["scheduled_time_hhmm"], "10:24")
+        self.assertEqual(delayed["actual_time_hhmm"], "10:38")
+        self.assertEqual(delayed["source_page"], "zponline")
+
+        on_time = result["Sp 1703"]
+        self.assertEqual(on_time["status"], "on_time")
+        self.assertEqual(on_time["delay"], 0)
+        self.assertEqual(on_time["station_text"], "Švihov u Klatov")
+
+    def test_source_page_from_url_html_suffix(self):
+        self.assertEqual(get_delays.source_page_from_url("https://babitron.kam.mff.cuni.cz/zponlineos.html"), "zponlineos")
+        self.assertEqual(get_delays.source_page_from_url("https://babitron.kam.mff.cuni.cz/zponline.html"), "zponline")
 
 
 if __name__ == "__main__":

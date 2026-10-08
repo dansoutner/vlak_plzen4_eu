@@ -723,9 +723,15 @@ DEFAULT_TEMPLATE = """
 </html>
 """.strip()
 
-DEFAULT_GTFS_CANDIDATES = [
-    Path("jizdni-rady-czech-republic/data/merged")
-]
+OFFICIAL_GTFS_ROOT = Path("data/official_rail_work/official_gtfs")
+
+
+def default_gtfs_candidates() -> list[Path]:
+    """Official rail GTFS feeds (one directory per timetable year), newest first."""
+    if not OFFICIAL_GTFS_ROOT.is_dir():
+        return [OFFICIAL_GTFS_ROOT / "<year>"]
+    years = [p for p in OFFICIAL_GTFS_ROOT.iterdir() if p.is_dir() and p.name.isdigit()]
+    return sorted(years, key=lambda p: int(p.name), reverse=True) or [OFFICIAL_GTFS_ROOT / "<year>"]
 
 
 def seconds_to_time(value: Any) -> str | None:
@@ -1080,10 +1086,11 @@ def resolve_gtfs_path(explicit_path: str | None) -> Path:
         if not path.exists():
             raise FileNotFoundError(f"GTFS feed not found: {path}")
         return path
-    for candidate in DEFAULT_GTFS_CANDIDATES:
+    candidates = default_gtfs_candidates()
+    for candidate in candidates:
         if candidate.exists():
             return candidate
-    searched = ", ".join(str(p) for p in DEFAULT_GTFS_CANDIDATES)
+    searched = ", ".join(str(p) for p in candidates)
     raise FileNotFoundError(f"No GTFS feed found. Tried: {searched}. Use --gtfs-path.")
 
 
@@ -1369,9 +1376,9 @@ def make_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description="Generate HTML and/or JSON timetables between two adjacent GTFS stops."
     )
-    parser.add_argument("--gtfs-path", help="Path to GTFS zip/directory. Auto-detects when omitted.")
-    parser.add_argument("--from-stop", default="ST_44120", help="Source stop_id (default: ST_44120).")
-    parser.add_argument("--to-stop", default="ST_44121", help="Target stop_id (default: ST_44121).")
+    parser.add_argument("--gtfs-path", help="Path to GTFS zip/directory. Default: newest data/official_rail_work/official_gtfs/<year>.")
+    parser.add_argument("--from-stop", default="73265", help="Source stop_id (default: 73265 = Plzeň-Doubravka).")
+    parser.add_argument("--to-stop", default="73275", help="Target stop_id (default: 73275 = Plzeň hl.n.).")
     parser.add_argument("--from-label", default="Doubravka", help="Human label used for output titles/files.")
     parser.add_argument("--to-label", default="Hlavní nádraží", help="Human label used for output titles/files.")
     parser.add_argument("--title", help="Custom HTML title for the forward direction.")
